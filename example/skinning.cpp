@@ -12,14 +12,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#define NK_INCLUDE_FIXED_TYPES
-#define NK_INCLUDE_STANDARD_IO
-#define NK_INCLUDE_DEFAULT_ALLOCATOR
-#define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
-#define NK_INCLUDE_FONT_BAKING
-#define NK_INCLUDE_DEFAULT_FONT
-#define NK_IMPLEMENTATION
-#include "../nuklear.h"
+#include "nuklear.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -393,7 +386,7 @@ int main(int argc, char *argv[])
 
     {   /* skin */
         glEnable(GL_TEXTURE_2D);
-        media.skin = image_load("../skins/gwen.png");
+        media.skin = image_load("./skins/gwen.png");
         media.check = nk_subimage_id(media.skin, 512,512, nk_rect(464,32,15,15));
         media.check_cursor = nk_subimage_id(media.skin, 512,512, nk_rect(450,34,11,11));
         media.option = nk_subimage_id(media.skin, 512,512, nk_rect(464,64,15,15));

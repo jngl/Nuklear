@@ -219,6 +219,8 @@ NK_STATIC_ASSERT(sizeof(nk_bool) == sizeof(bool));
 NK_STATIC_ASSERT(sizeof(nk_bool) >= 2);
 #endif
 
+#include "nuklear_dep.h"
+
 /* ============================================================================
  *
  *                                  API

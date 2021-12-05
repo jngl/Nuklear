@@ -14,14 +14,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#define NK_INCLUDE_FIXED_TYPES
-#define NK_INCLUDE_STANDARD_IO
-#define NK_INCLUDE_DEFAULT_ALLOCATOR
-#define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
-#define NK_INCLUDE_FONT_BAKING
-#define NK_INCLUDE_DEFAULT_FONT
-#define NK_IMPLEMENTATION
-#include "../nuklear.h"
+#include "nuklear.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -823,16 +816,16 @@ int main(int argc, char *argv[])
 
     /* icons */
     glEnable(GL_TEXTURE_2D);
-    media.icons.home = icon_load("../icon/home.png");
-    media.icons.directory = icon_load("../icon/directory.png");
-    media.icons.computer = icon_load("../icon/computer.png");
-    media.icons.desktop = icon_load("../icon/desktop.png");
-    media.icons.default_file = icon_load("../icon/default.png");
-    media.icons.text_file = icon_load("../icon/text.png");
-    media.icons.music_file = icon_load("../icon/music.png");
-    media.icons.font_file =  icon_load("../icon/font.png");
-    media.icons.img_file = icon_load("../icon/img.png");
-    media.icons.movie_file = icon_load("../icon/movie.png");
+    media.icons.home = icon_load("./icon/home.png");
+    media.icons.directory = icon_load("./icon/directory.png");
+    media.icons.computer = icon_load("./icon/computer.png");
+    media.icons.desktop = icon_load("./icon/desktop.png");
+    media.icons.default_file = icon_load("./icon/default.png");
+    media.icons.text_file = icon_load("./icon/text.png");
+    media.icons.music_file = icon_load("./icon/music.png");
+    media.icons.font_file =  icon_load("./icon/font.png");
+    media.icons.img_file = icon_load("./icon/img.png");
+    media.icons.movie_file = icon_load("./icon/movie.png");
     media_init(&media);
 
     file_browser_init(&browser, &media);
