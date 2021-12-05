@@ -7,7 +7,7 @@
  *
  * ===============================================================*/
 #ifdef NK_INCLUDE_VERTEX_BUFFER_OUTPUT
-NK_API void
+ void
 nk_draw_list_init(struct nk_draw_list *list)
 {
     nk_size i = 0;
@@ -20,7 +20,7 @@ nk_draw_list_init(struct nk_draw_list *list)
         list->circle_vtx[i].y = (float)NK_SIN(a);
     }
 }
-NK_API void
+ void
 nk_draw_list_setup(struct nk_draw_list *canvas, const struct nk_convert_config *config,
     struct nk_buffer *cmds, struct nk_buffer *vertices, struct nk_buffer *elements,
     enum nk_anti_aliasing line_aa, enum nk_anti_aliasing shape_aa)
@@ -48,7 +48,7 @@ nk_draw_list_setup(struct nk_draw_list *canvas, const struct nk_convert_config *
     canvas->cmd_count = 0;
     canvas->path_count = 0;
 }
-NK_API const struct nk_draw_command*
+ const struct nk_draw_command*
 nk__draw_list_begin(const struct nk_draw_list *canvas, const struct nk_buffer *buffer)
 {
     nk_byte *memory;
@@ -64,7 +64,7 @@ nk__draw_list_begin(const struct nk_draw_list *canvas, const struct nk_buffer *b
     cmd = nk_ptr_add(const struct nk_draw_command, memory, offset);
     return cmd;
 }
-NK_API const struct nk_draw_command*
+ const struct nk_draw_command*
 nk__draw_list_end(const struct nk_draw_list *canvas, const struct nk_buffer *buffer)
 {
     nk_size size;
@@ -84,7 +84,7 @@ nk__draw_list_end(const struct nk_draw_list *canvas, const struct nk_buffer *buf
     end -= (canvas->cmd_count-1);
     return end;
 }
-NK_API const struct nk_draw_command*
+ const struct nk_draw_command*
 nk__draw_list_next(const struct nk_draw_command *cmd,
     const struct nk_buffer *buffer, const struct nk_draw_list *canvas)
 {
@@ -207,7 +207,7 @@ nk_draw_list_push_image(struct nk_draw_list *list, nk_handle texture)
     }
 }
 #ifdef NK_INCLUDE_COMMAND_USERDATA
-NK_API void
+ void
 nk_draw_list_push_userdata(struct nk_draw_list *list, nk_handle userdata)
 {
     list->userdata = userdata;
@@ -410,7 +410,7 @@ nk_draw_vertex(void *dst, const struct nk_convert_config *config,
     }
     return result;
 }
-NK_API void
+ void
 nk_draw_list_stroke_poly_line(struct nk_draw_list *list, const struct nk_vec2 *points,
     const unsigned int points_count, struct nk_color color, enum nk_draw_list_stroke closed,
     float thickness, enum nk_anti_aliasing aliasing)
@@ -650,7 +650,7 @@ nk_draw_list_stroke_poly_line(struct nk_draw_list *list, const struct nk_vec2 *p
         }
     }
 }
-NK_API void
+ void
 nk_draw_list_fill_poly_convex(struct nk_draw_list *list,
     const struct nk_vec2 *points, const unsigned int points_count,
     struct nk_color color, enum nk_anti_aliasing aliasing)
@@ -774,7 +774,7 @@ nk_draw_list_fill_poly_convex(struct nk_draw_list *list,
         }
     }
 }
-NK_API void
+ void
 nk_draw_list_path_clear(struct nk_draw_list *list)
 {
     NK_ASSERT(list);
@@ -783,7 +783,7 @@ nk_draw_list_path_clear(struct nk_draw_list *list)
     list->path_count = 0;
     list->path_offset = 0;
 }
-NK_API void
+ void
 nk_draw_list_path_line_to(struct nk_draw_list *list, struct nk_vec2 pos)
 {
     struct nk_vec2 *points = 0;
@@ -801,7 +801,7 @@ nk_draw_list_path_line_to(struct nk_draw_list *list, struct nk_vec2 pos)
     if (!points) return;
     points[0] = pos;
 }
-NK_API void
+ void
 nk_draw_list_path_arc_to_fast(struct nk_draw_list *list, struct nk_vec2 center,
     float radius, int a_min, int a_max)
 {
@@ -817,7 +817,7 @@ nk_draw_list_path_arc_to_fast(struct nk_draw_list *list, struct nk_vec2 center,
         }
     }
 }
-NK_API void
+ void
 nk_draw_list_path_arc_to(struct nk_draw_list *list, struct nk_vec2 center,
     float radius, float a_min, float a_max, unsigned int segments)
 {
@@ -862,7 +862,7 @@ nk_draw_list_path_arc_to(struct nk_draw_list *list, struct nk_vec2 center,
         cy = new_cy;
     }}
 }
-NK_API void
+ void
 nk_draw_list_path_rect_to(struct nk_draw_list *list, struct nk_vec2 a,
     struct nk_vec2 b, float rounding)
 {
@@ -885,7 +885,7 @@ nk_draw_list_path_rect_to(struct nk_draw_list *list, struct nk_vec2 a,
         nk_draw_list_path_arc_to_fast(list, nk_vec2(a.x + r, b.y - r), r, 3, 6);
     }
 }
-NK_API void
+ void
 nk_draw_list_path_curve_to(struct nk_draw_list *list, struct nk_vec2 p2,
     struct nk_vec2 p3, struct nk_vec2 p4, unsigned int num_segments)
 {
@@ -912,7 +912,7 @@ nk_draw_list_path_curve_to(struct nk_draw_list *list, struct nk_vec2 p2,
         nk_draw_list_path_line_to(list, nk_vec2(x,y));
     }
 }
-NK_API void
+ void
 nk_draw_list_path_fill(struct nk_draw_list *list, struct nk_color color)
 {
     struct nk_vec2 *points;
@@ -922,7 +922,7 @@ nk_draw_list_path_fill(struct nk_draw_list *list, struct nk_color color)
     nk_draw_list_fill_poly_convex(list, points, list->path_count, color, list->config.shape_AA);
     nk_draw_list_path_clear(list);
 }
-NK_API void
+ void
 nk_draw_list_path_stroke(struct nk_draw_list *list, struct nk_color color,
     enum nk_draw_list_stroke closed, float thickness)
 {
@@ -934,7 +934,7 @@ nk_draw_list_path_stroke(struct nk_draw_list *list, struct nk_color color,
         closed, thickness, list->config.line_AA);
     nk_draw_list_path_clear(list);
 }
-NK_API void
+ void
 nk_draw_list_stroke_line(struct nk_draw_list *list, struct nk_vec2 a,
     struct nk_vec2 b, struct nk_color col, float thickness)
 {
@@ -949,7 +949,7 @@ nk_draw_list_stroke_line(struct nk_draw_list *list, struct nk_vec2 a,
     }
     nk_draw_list_path_stroke(list,  col, NK_STROKE_OPEN, thickness);
 }
-NK_API void
+ void
 nk_draw_list_fill_rect(struct nk_draw_list *list, struct nk_rect rect,
     struct nk_color col, float rounding)
 {
@@ -964,7 +964,7 @@ nk_draw_list_fill_rect(struct nk_draw_list *list, struct nk_rect rect,
             nk_vec2(rect.x + rect.w, rect.y + rect.h), rounding);
     } nk_draw_list_path_fill(list,  col);
 }
-NK_API void
+ void
 nk_draw_list_stroke_rect(struct nk_draw_list *list, struct nk_rect rect,
     struct nk_color col, float rounding, float thickness)
 {
@@ -978,7 +978,7 @@ nk_draw_list_stroke_rect(struct nk_draw_list *list, struct nk_rect rect,
             nk_vec2(rect.x + rect.w, rect.y + rect.h), rounding);
     } nk_draw_list_path_stroke(list,  col, NK_STROKE_CLOSED, thickness);
 }
-NK_API void
+ void
 nk_draw_list_fill_rect_multi_color(struct nk_draw_list *list, struct nk_rect rect,
     struct nk_color left, struct nk_color top, struct nk_color right,
     struct nk_color bottom)
@@ -1012,7 +1012,7 @@ nk_draw_list_fill_rect_multi_color(struct nk_draw_list *list, struct nk_rect rec
     vtx = nk_draw_vertex(vtx, &list->config, nk_vec2(rect.x + rect.w, rect.y + rect.h), list->config.null.uv, col_right);
     vtx = nk_draw_vertex(vtx, &list->config, nk_vec2(rect.x, rect.y + rect.h), list->config.null.uv, col_bottom);
 }
-NK_API void
+ void
 nk_draw_list_fill_triangle(struct nk_draw_list *list, struct nk_vec2 a,
     struct nk_vec2 b, struct nk_vec2 c, struct nk_color col)
 {
@@ -1023,7 +1023,7 @@ nk_draw_list_fill_triangle(struct nk_draw_list *list, struct nk_vec2 a,
     nk_draw_list_path_line_to(list, c);
     nk_draw_list_path_fill(list, col);
 }
-NK_API void
+ void
 nk_draw_list_stroke_triangle(struct nk_draw_list *list, struct nk_vec2 a,
     struct nk_vec2 b, struct nk_vec2 c, struct nk_color col, float thickness)
 {
@@ -1034,7 +1034,7 @@ nk_draw_list_stroke_triangle(struct nk_draw_list *list, struct nk_vec2 a,
     nk_draw_list_path_line_to(list, c);
     nk_draw_list_path_stroke(list, col, NK_STROKE_CLOSED, thickness);
 }
-NK_API void
+ void
 nk_draw_list_fill_circle(struct nk_draw_list *list, struct nk_vec2 center,
     float radius, struct nk_color col, unsigned int segs)
 {
@@ -1045,7 +1045,7 @@ nk_draw_list_fill_circle(struct nk_draw_list *list, struct nk_vec2 center,
     nk_draw_list_path_arc_to(list, center, radius, 0.0f, a_max, segs);
     nk_draw_list_path_fill(list, col);
 }
-NK_API void
+ void
 nk_draw_list_stroke_circle(struct nk_draw_list *list, struct nk_vec2 center,
     float radius, struct nk_color col, unsigned int segs, float thickness)
 {
@@ -1056,7 +1056,7 @@ nk_draw_list_stroke_circle(struct nk_draw_list *list, struct nk_vec2 center,
     nk_draw_list_path_arc_to(list, center, radius, 0.0f, a_max, segs);
     nk_draw_list_path_stroke(list, col, NK_STROKE_CLOSED, thickness);
 }
-NK_API void
+ void
 nk_draw_list_stroke_curve(struct nk_draw_list *list, struct nk_vec2 p0,
     struct nk_vec2 cp0, struct nk_vec2 cp1, struct nk_vec2 p1,
     struct nk_color col, unsigned int segments, float thickness)
@@ -1104,7 +1104,7 @@ nk_draw_list_push_rect_uv(struct nk_draw_list *list, struct nk_vec2 a,
     vtx = nk_draw_vertex(vtx, &list->config, c, uvc, col);
     vtx = nk_draw_vertex(vtx, &list->config, d, uvd, col);
 }
-NK_API void
+ void
 nk_draw_list_add_image(struct nk_draw_list *list, struct nk_image texture,
     struct nk_rect rect, struct nk_color color)
 {
@@ -1125,7 +1125,7 @@ nk_draw_list_add_image(struct nk_draw_list *list, struct nk_image texture,
             nk_vec2(rect.x + rect.w, rect.y + rect.h),
             nk_vec2(0.0f, 0.0f), nk_vec2(1.0f, 1.0f),color);
 }
-NK_API void
+ void
 nk_draw_list_add_text(struct nk_draw_list *list, const struct nk_user_font *font,
     struct nk_rect rect, const char *text, int len, float font_height,
     struct nk_color fg)
@@ -1175,7 +1175,7 @@ nk_draw_list_add_text(struct nk_draw_list *list, const struct nk_user_font *font
         unicode = next;
     }
 }
-NK_API nk_flags
+ nk_flags
 nk_convert(struct nk_context *ctx, struct nk_buffer *cmds,
     struct nk_buffer *vertices, struct nk_buffer *elements,
     const struct nk_convert_config *config)
@@ -1317,18 +1317,18 @@ nk_convert(struct nk_context *ctx, struct nk_buffer *cmds,
     res |= (elements->needed > elements->allocated) ? NK_CONVERT_ELEMENT_BUFFER_FULL: 0;
     return res;
 }
-NK_API const struct nk_draw_command*
+ const struct nk_draw_command*
 nk__draw_begin(const struct nk_context *ctx,
     const struct nk_buffer *buffer)
 {
     return nk__draw_list_begin(&ctx->draw_list, buffer);
 }
-NK_API const struct nk_draw_command*
+ const struct nk_draw_command*
 nk__draw_end(const struct nk_context *ctx, const struct nk_buffer *buffer)
 {
     return nk__draw_list_end(&ctx->draw_list, buffer);
 }
-NK_API const struct nk_draw_command*
+ const struct nk_draw_command*
 nk__draw_next(const struct nk_draw_command *cmd,
     const struct nk_buffer *buffer, const struct nk_context *ctx)
 {

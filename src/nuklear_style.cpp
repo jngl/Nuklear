@@ -6,7 +6,7 @@
  *                              STYLE
  *
  * ===============================================================*/
-NK_API void nk_style_default(struct nk_context *ctx){nk_style_from_table(ctx, 0);}
+ void nk_style_default(struct nk_context *ctx){nk_style_from_table(ctx, 0);}
 #define NK_COLOR_MAP(NK_COLOR)\
     NK_COLOR(NK_COLOR_TEXT,                     175,175,175,255) \
     NK_COLOR(NK_COLOR_WINDOW,                   45, 45, 45, 255) \
@@ -49,12 +49,12 @@ NK_GLOBAL const char *nk_color_names[NK_COLOR_COUNT] = {
 #undef NK_COLOR
 };
 
-NK_API const char*
+ const char*
 nk_style_get_color_by_name(enum nk_style_colors c)
 {
     return nk_color_names[c];
 }
-NK_API struct nk_style_item
+ struct nk_style_item
 nk_style_item_color(struct nk_color col)
 {
     struct nk_style_item i;
@@ -62,7 +62,7 @@ nk_style_item_color(struct nk_color col)
     i.data.color = col;
     return i;
 }
-NK_API struct nk_style_item
+ struct nk_style_item
 nk_style_item_image(struct nk_image img)
 {
     struct nk_style_item i;
@@ -70,7 +70,7 @@ nk_style_item_image(struct nk_image img)
     i.data.image = img;
     return i;
 }
-NK_API struct nk_style_item
+ struct nk_style_item
 nk_style_item_nine_slice(struct nk_nine_slice slice)
 {
     struct nk_style_item i;
@@ -78,7 +78,7 @@ nk_style_item_nine_slice(struct nk_nine_slice slice)
     i.data.slice = slice;
     return i;
 }
-NK_API struct nk_style_item
+ struct nk_style_item
 nk_style_item_hide(void)
 {
     struct nk_style_item i;
@@ -86,7 +86,7 @@ nk_style_item_hide(void)
     i.data.color = nk_rgba(0,0,0,0);
     return i;
 }
-NK_API void
+ void
 nk_style_from_table(struct nk_context *ctx, const struct nk_color *table)
 {
     struct nk_style *style;
@@ -630,7 +630,7 @@ nk_style_from_table(struct nk_context *ctx, const struct nk_color *table)
     win->menu_padding = nk_vec2(4,4);
     win->tooltip_padding = nk_vec2(4,4);
 }
-NK_API void
+ void
 nk_style_set_font(struct nk_context *ctx, const struct nk_user_font *font)
 {
     struct nk_style *style;
@@ -643,7 +643,7 @@ nk_style_set_font(struct nk_context *ctx, const struct nk_user_font *font)
     if (ctx->current)
         nk_layout_reset_min_row_height(ctx);
 }
-NK_API nk_bool
+ nk_bool
 nk_style_push_font(struct nk_context *ctx, const struct nk_user_font *font)
 {
     struct nk_config_stack_user_font *font_stack;
@@ -663,7 +663,7 @@ nk_style_push_font(struct nk_context *ctx, const struct nk_user_font *font)
     ctx->style.font = font;
     return 1;
 }
-NK_API nk_bool
+ nk_bool
 nk_style_pop_font(struct nk_context *ctx)
 {
     struct nk_config_stack_user_font *font_stack;
@@ -713,19 +713,19 @@ nk_style_pop_##type(struct nk_context *ctx)\
     *element->address = element->old_value;\
     return 1;\
 }
-NK_API nk_bool NK_STYLE_PUSH_IMPLEMENATION(struct nk, style_item, style_items)
-NK_API nk_bool NK_STYLE_PUSH_IMPLEMENATION(nk,float, floats)
-NK_API nk_bool NK_STYLE_PUSH_IMPLEMENATION(struct nk, vec2, vectors)
-NK_API nk_bool NK_STYLE_PUSH_IMPLEMENATION(nk,flags, flags)
-NK_API nk_bool NK_STYLE_PUSH_IMPLEMENATION(struct nk,color, colors)
+ nk_bool NK_STYLE_PUSH_IMPLEMENATION(struct nk, style_item, style_items)
+ nk_bool NK_STYLE_PUSH_IMPLEMENATION(nk,float, floats)
+ nk_bool NK_STYLE_PUSH_IMPLEMENATION(struct nk, vec2, vectors)
+ nk_bool NK_STYLE_PUSH_IMPLEMENATION(nk,flags, flags)
+ nk_bool NK_STYLE_PUSH_IMPLEMENATION(struct nk,color, colors)
 
-NK_API nk_bool NK_STYLE_POP_IMPLEMENATION(style_item, style_items)
-NK_API nk_bool NK_STYLE_POP_IMPLEMENATION(float,floats)
-NK_API nk_bool NK_STYLE_POP_IMPLEMENATION(vec2, vectors)
-NK_API nk_bool NK_STYLE_POP_IMPLEMENATION(flags,flags)
-NK_API nk_bool NK_STYLE_POP_IMPLEMENATION(color,colors)
+ nk_bool NK_STYLE_POP_IMPLEMENATION(style_item, style_items)
+ nk_bool NK_STYLE_POP_IMPLEMENATION(float,floats)
+ nk_bool NK_STYLE_POP_IMPLEMENATION(vec2, vectors)
+ nk_bool NK_STYLE_POP_IMPLEMENATION(flags,flags)
+ nk_bool NK_STYLE_POP_IMPLEMENATION(color,colors)
 
-NK_API nk_bool
+ nk_bool
 nk_style_set_cursor(struct nk_context *ctx, enum nk_style_cursor c)
 {
     struct nk_style *style;
@@ -738,17 +738,17 @@ nk_style_set_cursor(struct nk_context *ctx, enum nk_style_cursor c)
     }
     return 0;
 }
-NK_API void
+ void
 nk_style_show_cursor(struct nk_context *ctx)
 {
     ctx->style.cursor_visible = nk_true;
 }
-NK_API void
+ void
 nk_style_hide_cursor(struct nk_context *ctx)
 {
     ctx->style.cursor_visible = nk_false;
 }
-NK_API void
+ void
 nk_style_load_cursor(struct nk_context *ctx, enum nk_style_cursor cursor,
     const struct nk_cursor *c)
 {
@@ -758,7 +758,7 @@ nk_style_load_cursor(struct nk_context *ctx, enum nk_style_cursor cursor,
     style = &ctx->style;
     style->cursors[cursor] = c;
 }
-NK_API void
+ void
 nk_style_load_all_cursors(struct nk_context *ctx, struct nk_cursor *cursors)
 {
     int i = 0;

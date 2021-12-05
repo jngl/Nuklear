@@ -6,7 +6,7 @@
  *                              PROPERTY
  *
  * ===============================================================*/
-NK_LIB void
+void
 nk_drag_behavior(nk_flags *state, const struct nk_input *in,
     struct nk_rect drag, struct nk_property_variant *variant,
     float inc_per_pixel)
@@ -45,7 +45,7 @@ nk_drag_behavior(nk_flags *state, const struct nk_input *in,
     else if (nk_input_is_mouse_prev_hovering_rect(in, drag))
         *state |= NK_WIDGET_STATE_LEFT;
 }
-NK_LIB void
+void
 nk_property_behavior(nk_flags *ws, const struct nk_input *in,
     struct nk_rect property,  struct nk_rect label, struct nk_rect edit,
     struct nk_rect empty, int *state, struct nk_property_variant *variant,
@@ -65,7 +65,7 @@ nk_property_behavior(nk_flags *ws, const struct nk_input *in,
         if (!(*ws & NK_WIDGET_STATE_ACTIVED)) *state = NK_PROPERTY_DEFAULT;
     }
 }
-NK_LIB void
+void
 nk_draw_property(struct nk_command_buffer *out, const struct nk_style_property *style,
     const struct nk_rect *bounds, const struct nk_rect *label, nk_flags state,
     const char *name, int len, const struct nk_user_font *font)
@@ -106,7 +106,7 @@ nk_draw_property(struct nk_command_buffer *out, const struct nk_style_property *
     text.padding = nk_vec2(0,0);
     nk_widget_text(out, *label, name, len, &text, NK_TEXT_CENTERED, font);
 }
-NK_LIB void
+void
 nk_do_property(nk_flags *ws,
     struct nk_command_buffer *out, struct nk_rect property,
     const char *name, struct nk_property_variant *variant,
@@ -282,7 +282,7 @@ nk_do_property(nk_flags *ws,
         }
     }
 }
-NK_LIB struct nk_property_variant
+struct nk_property_variant
 nk_property_variant_int(int value, int min_value, int max_value, int step)
 {
     struct nk_property_variant result;
@@ -293,7 +293,7 @@ nk_property_variant_int(int value, int min_value, int max_value, int step)
     result.step.i = step;
     return result;
 }
-NK_LIB struct nk_property_variant
+struct nk_property_variant
 nk_property_variant_float(float value, float min_value, float max_value, float step)
 {
     struct nk_property_variant result;
@@ -304,7 +304,7 @@ nk_property_variant_float(float value, float min_value, float max_value, float s
     result.step.f = step;
     return result;
 }
-NK_LIB struct nk_property_variant
+struct nk_property_variant
 nk_property_variant_double(double value, double min_value, double max_value,
     double step)
 {
@@ -316,7 +316,7 @@ nk_property_variant_double(double value, double min_value, double max_value,
     result.step.d = step;
     return result;
 }
-NK_LIB void
+void
 nk_property(struct nk_context *ctx, const char *name, struct nk_property_variant *variant,
     float inc_per_pixel, const enum nk_property_filter filter)
 {
@@ -416,7 +416,7 @@ nk_property(struct nk_context *ctx, const char *name, struct nk_property_variant
         win->property.active = 0;
     }
 }
-NK_API void
+ void
 nk_property_int(struct nk_context *ctx, const char *name,
     int min, int *val, int max, int step, float inc_per_pixel)
 {
@@ -430,7 +430,7 @@ nk_property_int(struct nk_context *ctx, const char *name,
     nk_property(ctx, name, &variant, inc_per_pixel, NK_FILTER_INT);
     *val = variant.value.i;
 }
-NK_API void
+ void
 nk_property_float(struct nk_context *ctx, const char *name,
     float min, float *val, float max, float step, float inc_per_pixel)
 {
@@ -444,7 +444,7 @@ nk_property_float(struct nk_context *ctx, const char *name,
     nk_property(ctx, name, &variant, inc_per_pixel, NK_FILTER_FLOAT);
     *val = variant.value.f;
 }
-NK_API void
+ void
 nk_property_double(struct nk_context *ctx, const char *name,
     double min, double *val, double max, double step, float inc_per_pixel)
 {
@@ -458,7 +458,7 @@ nk_property_double(struct nk_context *ctx, const char *name,
     nk_property(ctx, name, &variant, inc_per_pixel, NK_FILTER_FLOAT);
     *val = variant.value.d;
 }
-NK_API int
+ int
 nk_propertyi(struct nk_context *ctx, const char *name, int min, int val,
     int max, int step, float inc_per_pixel)
 {
@@ -472,7 +472,7 @@ nk_propertyi(struct nk_context *ctx, const char *name, int min, int val,
     val = variant.value.i;
     return val;
 }
-NK_API float
+ float
 nk_propertyf(struct nk_context *ctx, const char *name, float min,
     float val, float max, float step, float inc_per_pixel)
 {
@@ -486,7 +486,7 @@ nk_propertyf(struct nk_context *ctx, const char *name, float min,
     val = variant.value.f;
     return val;
 }
-NK_API double
+ double
 nk_propertyd(struct nk_context *ctx, const char *name, double min,
     double val, double max, double step, float inc_per_pixel)
 {

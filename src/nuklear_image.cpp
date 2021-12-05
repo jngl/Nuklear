@@ -6,14 +6,14 @@
  *                          IMAGE
  *
  * ===============================================================*/
-NK_API nk_handle
+ nk_handle
 nk_handle_ptr(void *ptr)
 {
     nk_handle handle = {0};
     handle.ptr = ptr;
     return handle;
 }
-NK_API nk_handle
+ nk_handle
 nk_handle_id(int id)
 {
     nk_handle handle;
@@ -21,7 +21,7 @@ nk_handle_id(int id)
     handle.id = id;
     return handle;
 }
-NK_API struct nk_image
+ struct nk_image
 nk_subimage_ptr(void *ptr, nk_ushort w, nk_ushort h, struct nk_rect r)
 {
     struct nk_image s;
@@ -34,7 +34,7 @@ nk_subimage_ptr(void *ptr, nk_ushort w, nk_ushort h, struct nk_rect r)
     s.region[3] = (nk_ushort)r.h;
     return s;
 }
-NK_API struct nk_image
+ struct nk_image
 nk_subimage_id(int id, nk_ushort w, nk_ushort h, struct nk_rect r)
 {
     struct nk_image s;
@@ -47,7 +47,7 @@ nk_subimage_id(int id, nk_ushort w, nk_ushort h, struct nk_rect r)
     s.region[3] = (nk_ushort)r.h;
     return s;
 }
-NK_API struct nk_image
+ struct nk_image
 nk_subimage_handle(nk_handle handle, nk_ushort w, nk_ushort h, struct nk_rect r)
 {
     struct nk_image s;
@@ -60,7 +60,7 @@ nk_subimage_handle(nk_handle handle, nk_ushort w, nk_ushort h, struct nk_rect r)
     s.region[3] = (nk_ushort)r.h;
     return s;
 }
-NK_API struct nk_image
+ struct nk_image
 nk_image_handle(nk_handle handle)
 {
     struct nk_image s;
@@ -73,7 +73,7 @@ nk_image_handle(nk_handle handle)
     s.region[3] = 0;
     return s;
 }
-NK_API struct nk_image
+ struct nk_image
 nk_image_ptr(void *ptr)
 {
     struct nk_image s;
@@ -87,7 +87,7 @@ nk_image_ptr(void *ptr)
     s.region[3] = 0;
     return s;
 }
-NK_API struct nk_image
+ struct nk_image
 nk_image_id(int id)
 {
     struct nk_image s;
@@ -100,13 +100,13 @@ nk_image_id(int id)
     s.region[3] = 0;
     return s;
 }
-NK_API nk_bool
+ nk_bool
 nk_image_is_subimage(const struct nk_image* img)
 {
     NK_ASSERT(img);
     return !(img->w == 0 && img->h == 0);
 }
-NK_API void
+ void
 nk_image(struct nk_context *ctx, struct nk_image img)
 {
     struct nk_window *win;
@@ -121,7 +121,7 @@ nk_image(struct nk_context *ctx, struct nk_image img)
     if (!nk_widget(&bounds, ctx)) return;
     nk_draw_image(&win->buffer, bounds, &img, nk_white);
 }
-NK_API void
+ void
 nk_image_color(struct nk_context *ctx, struct nk_image img, struct nk_color col)
 {
     struct nk_window *win;

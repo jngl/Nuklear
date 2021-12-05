@@ -6,7 +6,7 @@
  *                              PANEL
  *
  * ===============================================================*/
-NK_LIB void*
+void*
 nk_create_panel(struct nk_context *ctx)
 {
     struct nk_page_element *elem;
@@ -15,14 +15,14 @@ nk_create_panel(struct nk_context *ctx)
     nk_zero_struct(*elem);
     return &elem->data.pan;
 }
-NK_LIB void
+void
 nk_free_panel(struct nk_context *ctx, struct nk_panel *pan)
 {
     union nk_page_data *pd = NK_CONTAINER_OF(pan, union nk_page_data, pan);
     struct nk_page_element *pe = NK_CONTAINER_OF(pd, struct nk_page_element, data);
     nk_free_page_element(ctx, pe);
 }
-NK_LIB nk_bool
+nk_bool
 nk_panel_has_header(nk_flags flags, const char *title)
 {
     nk_bool active = 0;
@@ -31,7 +31,7 @@ nk_panel_has_header(nk_flags flags, const char *title)
     active = active && !(flags & NK_WINDOW_HIDDEN) && title;
     return active;
 }
-NK_LIB struct nk_vec2
+struct nk_vec2
 nk_panel_get_padding(const struct nk_style *style, enum nk_panel_type type)
 {
     switch (type) {
@@ -44,7 +44,7 @@ nk_panel_get_padding(const struct nk_style *style, enum nk_panel_type type)
     case NK_PANEL_MENU: return style->window.menu_padding;
     case NK_PANEL_TOOLTIP: return style->window.menu_padding;}
 }
-NK_LIB float
+float
 nk_panel_get_border(const struct nk_style *style, nk_flags flags,
     enum nk_panel_type type)
 {
@@ -60,7 +60,7 @@ nk_panel_get_border(const struct nk_style *style, nk_flags flags,
         case NK_PANEL_TOOLTIP: return style->window.menu_border;
     }} else return 0;
 }
-NK_LIB struct nk_color
+struct nk_color
 nk_panel_get_border_color(const struct nk_style *style, enum nk_panel_type type)
 {
     switch (type) {
@@ -73,17 +73,17 @@ nk_panel_get_border_color(const struct nk_style *style, enum nk_panel_type type)
     case NK_PANEL_MENU: return style->window.menu_border_color;
     case NK_PANEL_TOOLTIP: return style->window.menu_border_color;}
 }
-NK_LIB nk_bool
+nk_bool
 nk_panel_is_sub(enum nk_panel_type type)
 {
     return (type & NK_PANEL_SET_SUB)?1:0;
 }
-NK_LIB nk_bool
+nk_bool
 nk_panel_is_nonblock(enum nk_panel_type type)
 {
     return (type & NK_PANEL_SET_NONBLOCK)?1:0;
 }
-NK_LIB nk_bool
+nk_bool
 nk_panel_begin(struct nk_context *ctx, const char *title, enum nk_panel_type panel_type)
 {
     struct nk_input *in;
@@ -323,7 +323,7 @@ nk_panel_begin(struct nk_context *ctx, const char *title, enum nk_panel_type pan
     layout->clip = clip;}
     return !(layout->flags & NK_WINDOW_HIDDEN) && !(layout->flags & NK_WINDOW_MINIMIZED);
 }
-NK_LIB void
+void
 nk_panel_end(struct nk_context *ctx)
 {
     struct nk_input *in;

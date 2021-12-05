@@ -6,7 +6,7 @@
  *                              POPUP
  *
  * ===============================================================*/
-NK_API nk_bool
+ nk_bool
 nk_popup_begin(struct nk_context *ctx, enum nk_popup_type type,
     const char *title, nk_flags flags, struct nk_rect rect)
 {
@@ -102,7 +102,7 @@ nk_popup_begin(struct nk_context *ctx, enum nk_popup_type type,
         return 0;
     }
 }
-NK_LIB nk_bool
+nk_bool
 nk_nonblock_begin(struct nk_context *ctx,
     nk_flags flags, struct nk_rect body, struct nk_rect header,
     enum nk_panel_type panel_type)
@@ -185,7 +185,7 @@ nk_nonblock_begin(struct nk_context *ctx,
     }}
     return is_active;
 }
-NK_API void
+ void
 nk_popup_close(struct nk_context *ctx)
 {
     struct nk_window *popup;
@@ -197,7 +197,7 @@ nk_popup_close(struct nk_context *ctx)
     NK_ASSERT(popup->layout->type & NK_PANEL_SET_POPUP);
     popup->flags |= NK_WINDOW_HIDDEN;
 }
-NK_API void
+ void
 nk_popup_end(struct nk_context *ctx)
 {
     struct nk_window *win;
@@ -229,7 +229,7 @@ nk_popup_end(struct nk_context *ctx)
     ctx->current = win;
     nk_push_scissor(&win->buffer, win->layout->clip);
 }
-NK_API void
+ void
 nk_popup_get_scroll(struct nk_context *ctx, nk_uint *offset_x, nk_uint *offset_y)
 {
     struct nk_window *popup;
@@ -246,7 +246,7 @@ nk_popup_get_scroll(struct nk_context *ctx, nk_uint *offset_x, nk_uint *offset_y
     if (offset_y)
       *offset_y = popup->scrollbar.y;
 }
-NK_API void
+ void
 nk_popup_set_scroll(struct nk_context *ctx, nk_uint offset_x, nk_uint offset_y)
 {
     struct nk_window *popup;

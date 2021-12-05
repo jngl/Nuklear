@@ -6,7 +6,7 @@
  *                          PAGE ELEMENT
  *
  * ===============================================================*/
-NK_LIB struct nk_page_element*
+struct nk_page_element*
 nk_create_page_element(struct nk_context *ctx)
 {
     struct nk_page_element *elem;
@@ -32,7 +32,7 @@ nk_create_page_element(struct nk_context *ctx)
     elem->prev = 0;
     return elem;
 }
-NK_LIB void
+void
 nk_link_page_element_into_freelist(struct nk_context *ctx,
     struct nk_page_element *elem)
 {
@@ -44,7 +44,7 @@ nk_link_page_element_into_freelist(struct nk_context *ctx,
         ctx->freelist = elem;
     }
 }
-NK_LIB void
+void
 nk_free_page_element(struct nk_context *ctx, struct nk_page_element *elem)
 {
     /* we have a pool so just add to free list */

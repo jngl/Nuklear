@@ -18,14 +18,14 @@
 
 typedef struct IDirect3DDevice9 IDirect3DDevice9;
 
-NK_API struct nk_context *nk_d3d9_init(IDirect3DDevice9 *device, int width, int height);
-NK_API void nk_d3d9_font_stash_begin(struct nk_font_atlas **atlas);
-NK_API void nk_d3d9_font_stash_end(void);
-NK_API int nk_d3d9_handle_event(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
-NK_API void nk_d3d9_render(enum nk_anti_aliasing);
-NK_API void nk_d3d9_release(void);
-NK_API void nk_d3d9_resize(int width, int height);
-NK_API void nk_d3d9_shutdown(void);
+ struct nk_context *nk_d3d9_init(IDirect3DDevice9 *device, int width, int height);
+ void nk_d3d9_font_stash_begin(struct nk_font_atlas **atlas);
+ void nk_d3d9_font_stash_end(void);
+ int nk_d3d9_handle_event(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+ void nk_d3d9_render(enum nk_anti_aliasing);
+ void nk_d3d9_release(void);
+ void nk_d3d9_resize(int width, int height);
+ void nk_d3d9_shutdown(void);
 
 #endif
 /*
@@ -67,7 +67,7 @@ static struct {
     IDirect3DStateBlock9 *state;
 } d3d9;
 
-NK_API void
+ void
 nk_d3d9_create_state()
 {
     HRESULT hr;
@@ -109,7 +109,7 @@ nk_d3d9_create_state()
     NK_ASSERT(SUCCEEDED(hr));
 }
 
-NK_API void
+ void
 nk_d3d9_render(enum nk_anti_aliasing AA)
 {
     HRESULT hr;
@@ -212,7 +212,7 @@ nk_d3d9_get_projection_matrix(int width, int height, float *result)
     memcpy(result, matrix, sizeof(matrix));
 }
 
-NK_API void
+ void
 nk_d3d9_release(void)
 {
     IDirect3DTexture9_Release(d3d9.texture);
@@ -247,7 +247,7 @@ nk_d3d9_create_font_texture()
     nk_font_atlas_end(&d3d9.atlas, nk_handle_ptr(d3d9.texture), &d3d9.null);
 }
 
-NK_API void
+ void
 nk_d3d9_resize(int width, int height)
 {
     if (d3d9.texture) {
@@ -261,7 +261,7 @@ nk_d3d9_resize(int width, int height)
     d3d9.viewport.Height = height;
 }
 
-NK_API int
+ int
 nk_d3d9_handle_event(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
     switch (msg)
@@ -488,7 +488,7 @@ nk_d3d9_clipboard_copy(nk_handle usr, const char *text, int len)
     CloseClipboard();
 }
 
-NK_API struct nk_context*
+ struct nk_context*
 nk_d3d9_init(IDirect3DDevice9 *device, int width, int height)
 {
     d3d9.device = device;
@@ -514,7 +514,7 @@ nk_d3d9_init(IDirect3DDevice9 *device, int width, int height)
     return &d3d9.ctx;
 }
 
-NK_API void
+ void
 nk_d3d9_font_stash_begin(struct nk_font_atlas **atlas)
 {
     nk_font_atlas_init_default(&d3d9.atlas);
@@ -522,7 +522,7 @@ nk_d3d9_font_stash_begin(struct nk_font_atlas **atlas)
     *atlas = &d3d9.atlas;
 }
 
-NK_API void
+ void
 nk_d3d9_font_stash_end(void)
 {
     nk_d3d9_create_font_texture();
@@ -531,7 +531,7 @@ nk_d3d9_font_stash_end(void)
         nk_style_set_font(&d3d9.ctx, &d3d9.atlas.default_font->handle);
 }
 
-NK_API
+
 void nk_d3d9_shutdown(void)
 {
     nk_d3d9_release();

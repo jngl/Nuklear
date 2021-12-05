@@ -7,20 +7,20 @@
  *
  * ===============================================================*/
 #ifdef NK_INCLUDE_DEFAULT_ALLOCATOR
-NK_LIB void*
+void*
 nk_malloc(nk_handle unused, void *old,nk_size size)
 {
     NK_UNUSED(unused);
     NK_UNUSED(old);
     return malloc(size);
 }
-NK_LIB void
+void
 nk_mfree(nk_handle unused, void *ptr)
 {
     NK_UNUSED(unused);
     free(ptr);
 }
-NK_API void
+ void
 nk_buffer_init_default(struct nk_buffer *buffer)
 {
     struct nk_allocator alloc;
@@ -31,7 +31,7 @@ nk_buffer_init_default(struct nk_buffer *buffer)
 }
 #endif
 
-NK_API void
+ void
 nk_buffer_init(struct nk_buffer *b, const struct nk_allocator *a,
     nk_size initial_size)
 {
@@ -48,7 +48,7 @@ nk_buffer_init(struct nk_buffer *b, const struct nk_allocator *a,
     b->grow_factor = 2.0f;
     b->pool = *a;
 }
-NK_API void
+ void
 nk_buffer_init_fixed(struct nk_buffer *b, void *m, nk_size size)
 {
     NK_ASSERT(b);
@@ -62,7 +62,7 @@ nk_buffer_init_fixed(struct nk_buffer *b, void *m, nk_size size)
     b->memory.size = size;
     b->size = size;
 }
-NK_LIB void*
+void*
 nk_buffer_align(void *unaligned,
     nk_size align, nk_size *alignment,
     enum nk_buffer_allocation_type type)
@@ -92,7 +92,7 @@ nk_buffer_align(void *unaligned,
     }
     return memory;
 }
-NK_LIB void*
+void*
 nk_buffer_realloc(struct nk_buffer *b, nk_size capacity, nk_size *size)
 {
     void *temp;
@@ -130,7 +130,7 @@ nk_buffer_realloc(struct nk_buffer *b, nk_size capacity, nk_size *size)
     }
     return temp;
 }
-NK_LIB void*
+void*
 nk_buffer_alloc(struct nk_buffer *b, enum nk_buffer_allocation_type type,
     nk_size size, nk_size align)
 {
@@ -182,7 +182,7 @@ nk_buffer_alloc(struct nk_buffer *b, enum nk_buffer_allocation_type type,
     b->calls++;
     return memory;
 }
-NK_API void
+ void
 nk_buffer_push(struct nk_buffer *b, enum nk_buffer_allocation_type type,
     const void *memory, nk_size size, nk_size align)
 {
@@ -190,7 +190,7 @@ nk_buffer_push(struct nk_buffer *b, enum nk_buffer_allocation_type type,
     if (!mem) return;
     NK_MEMCPY(mem, memory, size);
 }
-NK_API void
+ void
 nk_buffer_mark(struct nk_buffer *buffer, enum nk_buffer_allocation_type type)
 {
     NK_ASSERT(buffer);
@@ -200,7 +200,7 @@ nk_buffer_mark(struct nk_buffer *buffer, enum nk_buffer_allocation_type type)
         buffer->marker[type].offset = buffer->size;
     else buffer->marker[type].offset = buffer->allocated;
 }
-NK_API void
+ void
 nk_buffer_reset(struct nk_buffer *buffer, enum nk_buffer_allocation_type type)
 {
     NK_ASSERT(buffer);
@@ -221,7 +221,7 @@ nk_buffer_reset(struct nk_buffer *buffer, enum nk_buffer_allocation_type type)
         buffer->marker[type].active = nk_false;
     }
 }
-NK_API void
+ void
 nk_buffer_clear(struct nk_buffer *b)
 {
     NK_ASSERT(b);
@@ -231,7 +231,7 @@ nk_buffer_clear(struct nk_buffer *b)
     b->calls = 0;
     b->needed = 0;
 }
-NK_API void
+ void
 nk_buffer_free(struct nk_buffer *b)
 {
     NK_ASSERT(b);
@@ -241,7 +241,7 @@ nk_buffer_free(struct nk_buffer *b)
     NK_ASSERT(b->pool.free);
     b->pool.free(b->pool.userdata, b->memory.ptr);
 }
-NK_API void
+ void
 nk_buffer_info(struct nk_memory_status *s, struct nk_buffer *b)
 {
     NK_ASSERT(b);
@@ -253,21 +253,21 @@ nk_buffer_info(struct nk_memory_status *s, struct nk_buffer *b)
     s->memory = b->memory.ptr;
     s->calls = b->calls;
 }
-NK_API void*
+ void*
 nk_buffer_memory(struct nk_buffer *buffer)
 {
     NK_ASSERT(buffer);
     if (!buffer) return 0;
     return buffer->memory.ptr;
 }
-NK_API const void*
+ const void*
 nk_buffer_memory_const(const struct nk_buffer *buffer)
 {
     NK_ASSERT(buffer);
     if (!buffer) return 0;
     return buffer->memory.ptr;
 }
-NK_API nk_size
+ nk_size
 nk_buffer_total(struct nk_buffer *buffer)
 {
     NK_ASSERT(buffer);

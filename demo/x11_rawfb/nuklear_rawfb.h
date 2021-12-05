@@ -41,10 +41,10 @@ rawfb_pl;
 
 
 /* All functions are thread-safe */
-NK_API struct rawfb_context *nk_rawfb_init(void *fb, void *tex_mem, const unsigned int w, const unsigned int h, const unsigned int pitch, const rawfb_pl pl);
-NK_API void                  nk_rawfb_render(const struct rawfb_context *rawfb, const struct nk_color clear, const unsigned char enable_clear);
-NK_API void                  nk_rawfb_shutdown(struct rawfb_context *rawfb);
-NK_API void                  nk_rawfb_resize_fb(struct rawfb_context *rawfb, void *fb, const unsigned int w, const unsigned int h, const unsigned int pitch, const rawfb_pl pl);
+ struct rawfb_context *nk_rawfb_init(void *fb, void *tex_mem, const unsigned int w, const unsigned int h, const unsigned int pitch, const rawfb_pl pl);
+ void                  nk_rawfb_render(const struct rawfb_context *rawfb, const struct nk_color clear, const unsigned char enable_clear);
+ void                  nk_rawfb_shutdown(struct rawfb_context *rawfb);
+ void                  nk_rawfb_resize_fb(struct rawfb_context *rawfb, void *fb, const unsigned int w, const unsigned int h, const unsigned int pitch, const rawfb_pl pl);
 
 #endif
 /*
@@ -575,7 +575,7 @@ nk_rawfb_fill_rect(const struct rawfb_context *rawfb,
     }
 }
 
-NK_API void
+ void
 nk_rawfb_draw_rect_multi_color(const struct rawfb_context *rawfb,
     const short x, const short y, const short w, const short h, struct nk_color tl,
     struct nk_color tr, struct nk_color br, struct nk_color bl)
@@ -811,7 +811,7 @@ nk_rawfb_clear(const struct rawfb_context *rawfb, const struct nk_color col)
     nk_rawfb_fill_rect(rawfb, 0, 0, rawfb->fb.w, rawfb->fb.h, 0, col);
 }
 
-NK_API struct rawfb_context*
+ struct rawfb_context*
 nk_rawfb_init(void *fb, void *tex_mem, const unsigned int w, const unsigned int h,
     const unsigned int pitch, const rawfb_pl pl)
 {
@@ -936,7 +936,7 @@ nk_rawfb_font_query_font_glyph(nk_handle handle, const float height,
     glyph->uv[1] = nk_vec2(g->u1, g->v1);
 }
 
-NK_API void
+ void
 nk_rawfb_draw_text(const struct rawfb_context *rawfb,
     const struct nk_user_font *font, const struct nk_rect rect,
     const char *text, const int len, const float font_height,
@@ -990,7 +990,7 @@ nk_rawfb_draw_text(const struct rawfb_context *rawfb,
     }
 }
 
-NK_API void
+ void
 nk_rawfb_drawimage(const struct rawfb_context *rawfb,
     const int x, const int y, const int w, const int h,
     const struct nk_image *img, const struct nk_color *col)
@@ -1010,7 +1010,7 @@ nk_rawfb_drawimage(const struct rawfb_context *rawfb,
     nk_rawfb_stretch_image(&rawfb->fb, &rawfb->font_tex, &dst_rect, &src_rect, &rawfb->scissors, col);
 }
 
-NK_API void
+ void
 nk_rawfb_shutdown(struct rawfb_context *rawfb)
 {
     if (rawfb) {
@@ -1020,7 +1020,7 @@ nk_rawfb_shutdown(struct rawfb_context *rawfb)
     }
 }
 
-NK_API void
+ void
 nk_rawfb_resize_fb(struct rawfb_context *rawfb,
                    void *fb,
                    const unsigned int w,
@@ -1035,7 +1035,7 @@ nk_rawfb_resize_fb(struct rawfb_context *rawfb,
     rawfb->fb.pl = pl;
 }
 
-NK_API void
+ void
 nk_rawfb_render(const struct rawfb_context *rawfb,
                 const struct nk_color clear,
                 const unsigned char enable_clear)

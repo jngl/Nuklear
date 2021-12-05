@@ -6,7 +6,7 @@
  *                              TABLE
  *
  * ===============================================================*/
-NK_LIB struct nk_table*
+struct nk_table*
 nk_create_table(struct nk_context *ctx)
 {
     struct nk_page_element *elem;
@@ -15,14 +15,14 @@ nk_create_table(struct nk_context *ctx)
     nk_zero_struct(*elem);
     return &elem->data.tbl;
 }
-NK_LIB void
+void
 nk_free_table(struct nk_context *ctx, struct nk_table *tbl)
 {
     union nk_page_data *pd = NK_CONTAINER_OF(tbl, union nk_page_data, tbl);
     struct nk_page_element *pe = NK_CONTAINER_OF(pd, struct nk_page_element, data);
     nk_free_page_element(ctx, pe);
 }
-NK_LIB void
+void
 nk_push_table(struct nk_window *win, struct nk_table *tbl)
 {
     if (!win->tables) {
@@ -40,7 +40,7 @@ nk_push_table(struct nk_window *win, struct nk_table *tbl)
     win->tables = tbl;
     win->table_count++;
 }
-NK_LIB void
+void
 nk_remove_table(struct nk_window *win, struct nk_table *tbl)
 {
     if (win->tables == tbl)
@@ -52,7 +52,7 @@ nk_remove_table(struct nk_window *win, struct nk_table *tbl)
     tbl->next = 0;
     tbl->prev = 0;
 }
-NK_LIB nk_uint*
+nk_uint*
 nk_add_value(struct nk_context *ctx, struct nk_window *win,
             nk_hash name, nk_uint value)
 {
@@ -70,7 +70,7 @@ nk_add_value(struct nk_context *ctx, struct nk_window *win,
     win->tables->values[win->tables->size] = value;
     return &win->tables->values[win->tables->size++];
 }
-NK_LIB nk_uint*
+nk_uint*
 nk_find_value(struct nk_window *win, nk_hash name)
 {
     struct nk_table *iter = win->tables;

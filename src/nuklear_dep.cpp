@@ -5,7 +5,7 @@
 #include "nuklear.h"
 #include "nuklear_internal.h"
 
-NK_LIB void* nk_memcopy(void *dst0, const void *src0, nk_size length)
+void* nk_memcopy(void *dst0, const void *src0, unsigned int length)
 {
     nk_ptr t;
     char *dst = (char*)dst0;
@@ -61,7 +61,7 @@ NK_LIB void* nk_memcopy(void *dst0, const void *src0, nk_size length)
     return (dst0);
 }
 
-NK_LIB void nk_memset(void *ptr, int c0, nk_size size)
+void nk_memset(void *ptr, int c0, unsigned int size)
 {
     #define nk_word unsigned
     #define nk_wsize sizeof(nk_word)
@@ -112,7 +112,7 @@ NK_LIB void nk_memset(void *ptr, int c0, nk_size size)
     #undef nk_wmask
 }
 
-NK_LIB char* nk_dtoa(char *s, double n)
+char* nk_dtoa(char *s, double n)
 {
     int useExp = 0;
     int digit = 0, m = 0, m1 = 0;
@@ -190,7 +190,7 @@ NK_LIB char* nk_dtoa(char *s, double n)
     return s;
 }
 
-NK_LIB float nk_sin(float x)
+float nk_sin(float x)
 {
     NK_STORAGE const float a0 = +1.91059300966915117e-31f;
     NK_STORAGE const float a1 = +1.00086760103908896f;
@@ -203,7 +203,7 @@ NK_LIB float nk_sin(float x)
     return a0 + x*(a1 + x*(a2 + x*(a3 + x*(a4 + x*(a5 + x*(a6 + x*a7))))));
 }
 
-NK_LIB float nk_cos(float x)
+float nk_cos(float x)
 {
     /* New implementation. Also generated using lolremez. */
     /* Old version significantly deviated from expected results. */

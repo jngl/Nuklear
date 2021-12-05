@@ -6,7 +6,7 @@
  *                          9-SLICE
  *
  * ===============================================================*/
-NK_API struct nk_nine_slice
+ struct nk_nine_slice
 nk_sub9slice_ptr(void *ptr, nk_ushort w, nk_ushort h, struct nk_rect rgn, nk_ushort l, nk_ushort t, nk_ushort r, nk_ushort b)
 {
     struct nk_nine_slice s;
@@ -21,7 +21,7 @@ nk_sub9slice_ptr(void *ptr, nk_ushort w, nk_ushort h, struct nk_rect rgn, nk_ush
     s.l = l; s.t = t; s.r = r; s.b = b;
     return s;
 }
-NK_API struct nk_nine_slice
+ struct nk_nine_slice
 nk_sub9slice_id(int id, nk_ushort w, nk_ushort h, struct nk_rect rgn, nk_ushort l, nk_ushort t, nk_ushort r, nk_ushort b)
 {
     struct nk_nine_slice s;
@@ -36,7 +36,7 @@ nk_sub9slice_id(int id, nk_ushort w, nk_ushort h, struct nk_rect rgn, nk_ushort 
     s.l = l; s.t = t; s.r = r; s.b = b;
     return s;
 }
-NK_API struct nk_nine_slice
+ struct nk_nine_slice
 nk_sub9slice_handle(nk_handle handle, nk_ushort w, nk_ushort h, struct nk_rect rgn, nk_ushort l, nk_ushort t, nk_ushort r, nk_ushort b)
 {
     struct nk_nine_slice s;
@@ -51,7 +51,7 @@ nk_sub9slice_handle(nk_handle handle, nk_ushort w, nk_ushort h, struct nk_rect r
     s.l = l; s.t = t; s.r = r; s.b = b;
     return s;
 }
-NK_API struct nk_nine_slice
+ struct nk_nine_slice
 nk_nine_slice_handle(nk_handle handle, nk_ushort l, nk_ushort t, nk_ushort r, nk_ushort b)
 {
     struct nk_nine_slice s;
@@ -66,7 +66,7 @@ nk_nine_slice_handle(nk_handle handle, nk_ushort l, nk_ushort t, nk_ushort r, nk
     s.l = l; s.t = t; s.r = r; s.b = b;
     return s;
 }
-NK_API struct nk_nine_slice
+ struct nk_nine_slice
 nk_nine_slice_ptr(void *ptr, nk_ushort l, nk_ushort t, nk_ushort r, nk_ushort b)
 {
     struct nk_nine_slice s;
@@ -82,7 +82,7 @@ nk_nine_slice_ptr(void *ptr, nk_ushort l, nk_ushort t, nk_ushort r, nk_ushort b)
     s.l = l; s.t = t; s.r = r; s.b = b;
     return s;
 }
-NK_API struct nk_nine_slice
+ struct nk_nine_slice
 nk_nine_slice_id(int id, nk_ushort l, nk_ushort t, nk_ushort r, nk_ushort b)
 {
     struct nk_nine_slice s;
@@ -97,7 +97,7 @@ nk_nine_slice_id(int id, nk_ushort l, nk_ushort t, nk_ushort r, nk_ushort b)
     s.l = l; s.t = t; s.r = r; s.b = b;
     return s;
 }
-NK_API int
+ int
 nk_nine_slice_is_sub9slice(const struct nk_nine_slice* slice)
 {
     NK_ASSERT(slice);

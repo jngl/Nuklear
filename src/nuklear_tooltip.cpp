@@ -6,7 +6,7 @@
  *                              TOOLTIP
  *
  * ===============================================================*/
-NK_API nk_bool
+ nk_bool
 nk_tooltip_begin(struct nk_context *ctx, float width)
 {
     int x,y,w,h;
@@ -45,7 +45,7 @@ nk_tooltip_begin(struct nk_context *ctx, float width)
     return ret;
 }
 
-NK_API void
+ void
 nk_tooltip_end(struct nk_context *ctx)
 {
     NK_ASSERT(ctx);
@@ -55,7 +55,7 @@ nk_tooltip_end(struct nk_context *ctx)
     nk_popup_close(ctx);
     nk_popup_end(ctx);
 }
-NK_API void
+ void
 nk_tooltip(struct nk_context *ctx, const char *text)
 {
     const struct nk_style *style;
@@ -91,7 +91,7 @@ nk_tooltip(struct nk_context *ctx, const char *text)
     }
 }
 #ifdef NK_INCLUDE_STANDARD_VARARGS
-NK_API void
+ void
 nk_tooltipf(struct nk_context *ctx, const char *fmt, ...)
 {
     va_list args;
@@ -99,7 +99,7 @@ nk_tooltipf(struct nk_context *ctx, const char *fmt, ...)
     nk_tooltipfv(ctx, fmt, args);
     va_end(args);
 }
-NK_API void
+ void
 nk_tooltipfv(struct nk_context *ctx, const char *fmt, va_list args)
 {
     char buf[256];

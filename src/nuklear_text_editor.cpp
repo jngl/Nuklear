@@ -120,7 +120,7 @@ nk_textedit_locate_coord(struct nk_text_edit *edit, float x, float y,
         return i+r.num_chars-1;
     else return i+r.num_chars;
 }
-NK_LIB void
+void
 nk_textedit_click(struct nk_text_edit *state, float x, float y,
     const struct nk_user_font *font, float row_height)
 {
@@ -131,7 +131,7 @@ nk_textedit_click(struct nk_text_edit *state, float x, float y,
     state->select_end = state->cursor;
     state->has_preferred_x = 0;
 }
-NK_LIB void
+void
 nk_textedit_drag(struct nk_text_edit *state, float x, float y,
     const struct nk_user_font *font, float row_height)
 {
@@ -213,7 +213,7 @@ nk_textedit_clamp(struct nk_text_edit *state)
     }
     if (state->cursor > n) state->cursor = n;
 }
-NK_API void
+ void
 nk_textedit_delete(struct nk_text_edit *state, int where, int len)
 {
     /* delete characters while updating undo */
@@ -221,7 +221,7 @@ nk_textedit_delete(struct nk_text_edit *state, int where, int len)
     nk_str_delete_runes(&state->string, where, len);
     state->has_preferred_x = 0;
 }
-NK_API void
+ void
 nk_textedit_delete_selection(struct nk_text_edit *state)
 {
     /* delete the section */
@@ -316,7 +316,7 @@ nk_textedit_prep_selection_at_cursor(struct nk_text_edit *state)
         state->select_start = state->select_end = state->cursor;
     else state->cursor = state->select_end;
 }
-NK_API nk_bool
+ nk_bool
 nk_textedit_cut(struct nk_text_edit *state)
 {
     /* API cut: delete selection */
@@ -329,7 +329,7 @@ nk_textedit_cut(struct nk_text_edit *state)
     }
    return 0;
 }
-NK_API nk_bool
+ nk_bool
 nk_textedit_paste(struct nk_text_edit *state, char const *ctext, int len)
 {
     /* API paste: replace existing selection with passed-in text */
@@ -354,7 +354,7 @@ nk_textedit_paste(struct nk_text_edit *state, char const *ctext, int len)
         --state->undo.undo_point;
     return 0;
 }
-NK_API void
+ void
 nk_textedit_text(struct nk_text_edit *state, const char *text, int total_len)
 {
     nk_rune unicode;
@@ -403,7 +403,7 @@ nk_textedit_text(struct nk_text_edit *state, const char *text, int total_len)
         glyph_len = nk_utf_decode(text + text_len, &unicode, total_len-text_len);
     }
 }
-NK_LIB void
+void
 nk_textedit_key(struct nk_text_edit *state, enum nk_keys key, int shift_mod,
     const struct nk_user_font *font, float row_height)
 {
@@ -819,7 +819,7 @@ nk_textedit_createundo(struct nk_text_undo_state *state, int pos,
         return &state->undo_char[r->char_storage];
     }
 }
-NK_API void
+ void
 nk_textedit_undo(struct nk_text_edit *state)
 {
     struct nk_text_undo_state *s = &state->undo;
@@ -886,7 +886,7 @@ nk_textedit_undo(struct nk_text_edit *state)
     s->undo_point--;
     s->redo_point--;
 }
-NK_API void
+ void
 nk_textedit_redo(struct nk_text_edit *state)
 {
     struct nk_text_undo_state *s = &state->undo;
@@ -961,7 +961,7 @@ nk_textedit_makeundo_replace(struct nk_text_edit *state, int where,
             p[i] = nk_str_rune_at(&state->string, where+i);
     }
 }
-NK_LIB void
+void
 nk_textedit_clear_state(struct nk_text_edit *state, enum nk_text_edit_type type,
     nk_plugin_filter filter)
 {
@@ -981,7 +981,7 @@ nk_textedit_clear_state(struct nk_text_edit *state, enum nk_text_edit_type type,
    state->filter = filter;
    state->scrollbar = nk_vec2(0,0);
 }
-NK_API void
+ void
 nk_textedit_init_fixed(struct nk_text_edit *state, void *memory, nk_size size)
 {
     NK_ASSERT(state);
@@ -991,7 +991,7 @@ nk_textedit_init_fixed(struct nk_text_edit *state, void *memory, nk_size size)
     nk_textedit_clear_state(state, NK_TEXT_EDIT_SINGLE_LINE, 0);
     nk_str_init_fixed(&state->string, memory, size);
 }
-NK_API void
+ void
 nk_textedit_init(struct nk_text_edit *state, struct nk_allocator *alloc, nk_size size)
 {
     NK_ASSERT(state);
@@ -1002,7 +1002,7 @@ nk_textedit_init(struct nk_text_edit *state, struct nk_allocator *alloc, nk_size
     nk_str_init(&state->string, alloc, size);
 }
 #ifdef NK_INCLUDE_DEFAULT_ALLOCATOR
-NK_API void
+ void
 nk_textedit_init_default(struct nk_text_edit *state)
 {
     NK_ASSERT(state);
@@ -1012,14 +1012,14 @@ nk_textedit_init_default(struct nk_text_edit *state)
     nk_str_init_default(&state->string);
 }
 #endif
-NK_API void
+ void
 nk_textedit_select_all(struct nk_text_edit *state)
 {
     NK_ASSERT(state);
     state->select_start = 0;
     state->select_end = state->string.len;
 }
-NK_API void
+ void
 nk_textedit_free(struct nk_text_edit *state)
 {
     NK_ASSERT(state);

@@ -33,7 +33,7 @@ nk_utf_decode_byte(char c, int *i)
     }
     return 0;
 }
-NK_API int
+ int
 nk_utf_decode(const char *c, nk_rune *u, int clen)
 {
     int i, j, len, type=0;
@@ -66,7 +66,7 @@ nk_utf_encode_byte(nk_rune u, int i)
 {
     return (char)((nk_utfbyte[i]) | ((nk_byte)u & ~nk_utfmask[i]));
 }
-NK_API int
+ int
 nk_utf_encode(nk_rune u, char *c, int clen)
 {
     int len, i;
@@ -81,7 +81,7 @@ nk_utf_encode(nk_rune u, char *c, int clen)
     c[0] = nk_utf_encode_byte(u, len);
     return len;
 }
-NK_API int
+ int
 nk_utf_len(const char *str, int len)
 {
     const char *text;
@@ -104,7 +104,7 @@ nk_utf_len(const char *str, int len)
     }
     return glyphs;
 }
-NK_API const char*
+ const char*
 nk_utf_at(const char *buffer, int length, int index,
     nk_rune *unicode, int *len)
 {

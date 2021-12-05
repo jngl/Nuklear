@@ -21,24 +21,24 @@ enum nk_glfw_init_state{
     NK_GLFW3_INSTALL_CALLBACKS
 };
 
-NK_API struct nk_context*   nk_glfw3_init(GLFWwindow *win, enum nk_glfw_init_state, int max_vertex_buffer, int max_element_buffer);
-NK_API void                 nk_glfw3_shutdown(void);
-NK_API void                 nk_glfw3_font_stash_begin(struct nk_font_atlas **atlas);
-NK_API void                 nk_glfw3_font_stash_end(void);
-NK_API void                 nk_glfw3_new_frame(void);
-NK_API void                 nk_glfw3_render(enum nk_anti_aliasing);
+ struct nk_context*   nk_glfw3_init(GLFWwindow *win, enum nk_glfw_init_state, int max_vertex_buffer, int max_element_buffer);
+ void                 nk_glfw3_shutdown(void);
+ void                 nk_glfw3_font_stash_begin(struct nk_font_atlas **atlas);
+ void                 nk_glfw3_font_stash_end(void);
+ void                 nk_glfw3_new_frame(void);
+ void                 nk_glfw3_render(enum nk_anti_aliasing);
 
-NK_API void                 nk_glfw3_device_destroy(void);
-NK_API void                 nk_glfw3_device_create(void);
+ void                 nk_glfw3_device_destroy(void);
+ void                 nk_glfw3_device_create(void);
 
-NK_API void                 nk_glfw3_char_callback(GLFWwindow *win, unsigned int codepoint);
-NK_API void                 nk_gflw3_scroll_callback(GLFWwindow *win, double xoff, double yoff);
-NK_API void                 nk_glfw3_mouse_button_callback(GLFWwindow *win, int button, int action, int mods);
+ void                 nk_glfw3_char_callback(GLFWwindow *win, unsigned int codepoint);
+ void                 nk_gflw3_scroll_callback(GLFWwindow *win, double xoff, double yoff);
+ void                 nk_glfw3_mouse_button_callback(GLFWwindow *win, int button, int action, int mods);
 
-NK_API GLuint               nk_glfw3_get_tex_ogl_id(int tex_index);
-NK_API GLuint64             nk_glfw3_get_tex_ogl_handle(int tex_index);
-NK_API int                  nk_glfw3_create_texture(const void* image, int width, int height);
-NK_API void                 nk_glfw3_destroy_texture(int tex_index);
+ GLuint               nk_glfw3_get_tex_ogl_id(int tex_index);
+ GLuint64             nk_glfw3_get_tex_ogl_handle(int tex_index);
+ int                  nk_glfw3_create_texture(const void* image, int width, int height);
+ void                 nk_glfw3_destroy_texture(int tex_index);
 
 #endif
 /*
@@ -112,7 +112,7 @@ static struct nk_glfw {
 #define NK_SHADER_BINDLESS "#extension GL_ARB_bindless_texture : require\n"
 #define NK_SHADER_64BIT "#extension GL_ARB_gpu_shader_int64 : require\n"
 
-NK_API void
+ void
 nk_glfw3_device_create()
 {
     GLint status;
@@ -244,7 +244,7 @@ nk_glfw3_get_available_tex_index()
     return -1;
 }
 
-NK_API GLuint
+ GLuint
 nk_glfw3_get_tex_ogl_id(int tex_index)
 {
     struct nk_glfw_device *dev = &glfw.ogl;
@@ -252,7 +252,7 @@ nk_glfw3_get_tex_ogl_id(int tex_index)
     return dev->tex_ids[tex_index];
 }
 
-NK_API GLuint64
+ GLuint64
 nk_glfw3_get_tex_ogl_handle(int tex_index)
 {
     struct nk_glfw_device *dev = &glfw.ogl;
@@ -260,7 +260,7 @@ nk_glfw3_get_tex_ogl_handle(int tex_index)
     return dev->tex_handles[tex_index];
 }
 
-NK_API int
+ int
 nk_glfw3_create_texture(const void* image, int width, int height)
 {
     GLuint id;
@@ -289,7 +289,7 @@ nk_glfw3_create_texture(const void* image, int width, int height)
     return tex_index;}
 }
 
-NK_API void
+ void
 nk_glfw3_destroy_texture(int tex_index)
 {
     struct nk_glfw_device *dev = &glfw.ogl;
@@ -310,7 +310,7 @@ nk_glfw3_device_upload_atlas(const void *image, int width, int height)
     dev->font_tex_index = nk_glfw3_create_texture(image, width, height);
 }
 
-NK_API void
+ void
 nk_glfw3_device_destroy(void)
 {
     int i = 0;
@@ -354,7 +354,7 @@ nk_glfw3_lock_buffer()
     dev->buffer_sync = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
 }
 
-NK_API void
+ void
 nk_glfw3_render(enum nk_anti_aliasing AA)
 {
     struct nk_glfw_device *dev = &glfw.ogl;
@@ -457,7 +457,7 @@ nk_glfw3_render(enum nk_anti_aliasing AA)
     nk_glfw3_lock_buffer();
 }
 
-NK_API void
+ void
 nk_glfw3_char_callback(GLFWwindow *win, unsigned int codepoint)
 {
     (void)win;
@@ -465,7 +465,7 @@ nk_glfw3_char_callback(GLFWwindow *win, unsigned int codepoint)
         glfw.text[glfw.text_len++] = codepoint;
 }
 
-NK_API void
+ void
 nk_gflw3_scroll_callback(GLFWwindow *win, double xoff, double yoff)
 {
     (void)win; (void)xoff;
@@ -473,7 +473,7 @@ nk_gflw3_scroll_callback(GLFWwindow *win, double xoff, double yoff)
     glfw.scroll.y += (float)yoff;
 }
 
-NK_API void
+ void
 nk_glfw3_mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
     double x, y;
@@ -511,7 +511,7 @@ nk_glfw3_clipboard_copy(nk_handle usr, const char *text, int len)
     free(str);
 }
 
-NK_API struct nk_context*
+ struct nk_context*
 nk_glfw3_init(GLFWwindow *win, enum nk_glfw_init_state init_state,
               int max_vertex_buffer, int max_element_buffer)
 {
@@ -538,7 +538,7 @@ nk_glfw3_init(GLFWwindow *win, enum nk_glfw_init_state init_state,
     return &glfw.ctx;
 }
 
-NK_API void
+ void
 nk_glfw3_font_stash_begin(struct nk_font_atlas **atlas)
 {
     nk_font_atlas_init_default(&glfw.atlas);
@@ -546,7 +546,7 @@ nk_glfw3_font_stash_begin(struct nk_font_atlas **atlas)
     *atlas = &glfw.atlas;
 }
 
-NK_API void
+ void
 nk_glfw3_font_stash_end(void)
 {
     const void *image; int w, h;
@@ -557,7 +557,7 @@ nk_glfw3_font_stash_end(void)
         nk_style_set_font(&glfw.ctx, &glfw.atlas.default_font->handle);
 }
 
-NK_API void
+ void
 nk_glfw3_new_frame(void)
 {
     int i;
@@ -637,7 +637,7 @@ nk_glfw3_new_frame(void)
     glfw.scroll = nk_vec2(0,0);
 }
 
-NK_API
+
 void nk_glfw3_shutdown(void)
 {
     nk_font_atlas_clear(&glfw.atlas);

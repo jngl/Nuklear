@@ -21,21 +21,21 @@
 #include <allegro5/allegro_ttf.h>
 
 typedef struct NkAllegro5Font NkAllegro5Font;
-NK_API struct nk_context*     nk_allegro5_init(NkAllegro5Font *font, ALLEGRO_DISPLAY *dsp,
+ struct nk_context*     nk_allegro5_init(NkAllegro5Font *font, ALLEGRO_DISPLAY *dsp,
                                   unsigned int width, unsigned int height);
-NK_API int                    nk_allegro5_handle_event(ALLEGRO_EVENT *ev);
-NK_API void                   nk_allegro5_shutdown(void);
-NK_API void                   nk_allegro5_render(void);
+ int                    nk_allegro5_handle_event(ALLEGRO_EVENT *ev);
+ void                   nk_allegro5_shutdown(void);
+ void                   nk_allegro5_render(void);
 
-NK_API struct nk_image*       nk_allegro5_create_image(const char* file_name);
-NK_API void                   nk_allegro5_del_image(struct nk_image* image);
+ struct nk_image*       nk_allegro5_create_image(const char* file_name);
+ void                   nk_allegro5_del_image(struct nk_image* image);
 
 /* Fonts. We wrap normal allegro fonts in some nuklear book keeping */
-NK_API NkAllegro5Font*        nk_allegro5_font_create_from_file(const char *file_name, int font_size, int flags);
-NK_API void                   nk_allegro5_font_del(NkAllegro5Font *font);
+ NkAllegro5Font*        nk_allegro5_font_create_from_file(const char *file_name, int font_size, int flags);
+ void                   nk_allegro5_font_del(NkAllegro5Font *font);
 /* NOTE : just use NkAllegro5Font instead of nk_user_font,
     since the former just extends the latter*/
-NK_API void                   nk_allegro5_font_set_font(NkAllegro5Font *font);
+ void                   nk_allegro5_font_set_font(NkAllegro5Font *font);
 
 #endif
 /*
@@ -68,7 +68,7 @@ static struct nk_allegro5 {
 } allegro5;
 
 
-NK_API struct nk_image* nk_allegro5_create_image(const char* file_name)
+ struct nk_image* nk_allegro5_create_image(const char* file_name)
 {
     if (!al_init_image_addon()) {
         fprintf(stdout, "Unable to initialize required allegro5 image addon\n");
@@ -88,7 +88,7 @@ NK_API struct nk_image* nk_allegro5_create_image(const char* file_name)
     return image;
 }
 
-NK_API void nk_allegro5_del_image(struct nk_image* image)
+ void nk_allegro5_del_image(struct nk_image* image)
 {
     if(!image) return;
     al_destroy_bitmap(image->handle.ptr);
@@ -113,7 +113,7 @@ nk_allegro5_font_get_text_width(nk_handle handle, float height, const char *text
 }
 
 /* Flags are identical to al_load_font() flags argument */
-NK_API NkAllegro5Font*
+ NkAllegro5Font*
 nk_allegro5_font_create_from_file(const char *file_name, int font_size, int flags)
 {
     if (!al_init_image_addon()) {
@@ -141,14 +141,14 @@ nk_allegro5_font_create_from_file(const char *file_name, int font_size, int flag
     return font;
 }
 
-NK_API void
+ void
 nk_allegro5_font_set_font(NkAllegro5Font *allegro5font)
 {
     struct nk_user_font *font = &allegro5font->nk;
     nk_style_set_font(&allegro5.ctx, font);
 }
 
-NK_API void
+ void
 nk_allegro5_font_del(NkAllegro5Font *font)
 {
     if(!font) return;
@@ -163,7 +163,7 @@ nk_color_to_allegro_color(struct nk_color color)
                 (unsigned char)color.b, (unsigned char)color.a);
 }
 
-NK_API void
+ void
 nk_allegro5_render()
 {
     const struct nk_command *cmd;
@@ -306,7 +306,7 @@ nk_allegro5_render()
     nk_clear(&allegro5.ctx);
 }
 
-NK_API int
+ int
 nk_allegro5_handle_event(ALLEGRO_EVENT *ev)
 {
     struct nk_context *ctx = &allegro5.ctx;
@@ -461,7 +461,7 @@ nk_allegro5_clipboard_copy(nk_handle usr, const char *text, int len)
     free(str);
 }
 
-NK_API struct nk_context*
+ struct nk_context*
 nk_allegro5_init(NkAllegro5Font *allegro5font, ALLEGRO_DISPLAY *dsp,
     unsigned int width, unsigned int height)
 {
@@ -485,7 +485,7 @@ nk_allegro5_init(NkAllegro5Font *allegro5font, ALLEGRO_DISPLAY *dsp,
     return &allegro5.ctx;
 }
 
-NK_API
+
 void nk_allegro5_shutdown(void)
 {
     nk_free(&allegro5.ctx);

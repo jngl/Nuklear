@@ -563,7 +563,7 @@ nk_sdlsurface_fill_rect(const struct sdlsurface_context *sdlsurface,
     }
 }
 
-NK_API void
+ void
 nk_sdlsurface_draw_rect_multi_color(const struct sdlsurface_context *sdlsurface,
     const short x, const short y, const short w, const short h, struct nk_color tl,
     struct nk_color tr, struct nk_color br, struct nk_color bl)
@@ -921,7 +921,7 @@ nk_sdlsurface_font_query_font_glyph(nk_handle handle, const float height,
     glyph->uv[1] = nk_vec2(g->u1, g->v1);
 }
 
-NK_API void
+ void
 nk_sdlsurface_draw_text(const struct sdlsurface_context *sdlsurface,
     const struct nk_user_font *font, const struct nk_rect rect,
     const char *text, const int len, const float font_height,
@@ -975,7 +975,7 @@ nk_sdlsurface_draw_text(const struct sdlsurface_context *sdlsurface,
     }
 }
 
-NK_API void
+ void
 nk_sdlsurface_drawimage(const struct sdlsurface_context *sdlsurface,
     const int x, const int y, const int w, const int h,
     const struct nk_image *img, const struct nk_color *col)
@@ -995,7 +995,7 @@ nk_sdlsurface_drawimage(const struct sdlsurface_context *sdlsurface,
     nk_sdlsurface_stretch_image(sdlsurface->fb, sdlsurface->font_tex, &dst_rect, &src_rect, &sdlsurface->scissors, col);
 }
 
-NK_API void
+ void
 nk_sdlsurface_shutdown(struct sdlsurface_context *sdlsurface)
 {
     if (sdlsurface) {
@@ -1007,7 +1007,7 @@ nk_sdlsurface_shutdown(struct sdlsurface_context *sdlsurface)
 }
 
 
-NK_API void
+ void
 nk_sdlsurface_render(const struct sdlsurface_context *sdlsurface,
                 const struct nk_color clear,
                 const unsigned char enable_clear)

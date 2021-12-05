@@ -14,14 +14,14 @@
 #define NK_XLIB_GL3_H_
 
 #include <X11/Xlib.h>
-NK_API struct nk_context*   nk_x11_init(Display *dpy, Window win);
-NK_API void                 nk_x11_font_stash_begin(struct nk_font_atlas **atlas);
-NK_API void                 nk_x11_font_stash_end(void);
-NK_API int                  nk_x11_handle_event(XEvent *evt);
-NK_API void                 nk_x11_render(enum nk_anti_aliasing, int max_vertex_buffer, int max_element_buffer);
-NK_API void                 nk_x11_shutdown(void);
-NK_API int                  nk_x11_device_create(void);
-NK_API void                 nk_x11_device_destroy(void);
+ struct nk_context*   nk_x11_init(Display *dpy, Window win);
+ void                 nk_x11_font_stash_begin(struct nk_font_atlas **atlas);
+ void                 nk_x11_font_stash_end(void);
+ int                  nk_x11_handle_event(XEvent *evt);
+ void                 nk_x11_render(enum nk_anti_aliasing, int max_vertex_buffer, int max_element_buffer);
+ void                 nk_x11_shutdown(void);
+ int                  nk_x11_device_create(void);
+ void                 nk_x11_device_destroy(void);
 
 #endif
 /*
@@ -357,7 +357,7 @@ nk_load_opengl(struct opengl_info *gl)
 }
 #endif
 
-NK_API int
+ int
 nk_x11_device_create(void)
 {
     GLint status;
@@ -457,7 +457,7 @@ nk_x11_device_upload_atlas(const void *image, int width, int height)
                 GL_RGBA, GL_UNSIGNED_BYTE, image);
 }
 
-NK_API void
+ void
 nk_x11_device_destroy(void)
 {
     struct nk_x11_device *dev = &x11.ogl;
@@ -472,7 +472,7 @@ nk_x11_device_destroy(void)
     nk_buffer_free(&dev->cmds);
 }
 
-NK_API void
+ void
 nk_x11_render(enum nk_anti_aliasing AA, int max_vertex_buffer, int max_element_buffer)
 {
     int width, height;
@@ -578,7 +578,7 @@ nk_x11_render(enum nk_anti_aliasing AA, int max_vertex_buffer, int max_element_b
     glDisable(GL_SCISSOR_TEST);
 }
 
-NK_API void
+ void
 nk_x11_font_stash_begin(struct nk_font_atlas **atlas)
 {
     nk_font_atlas_init_default(&x11.atlas);
@@ -586,7 +586,7 @@ nk_x11_font_stash_begin(struct nk_font_atlas **atlas)
     *atlas = &x11.atlas;
 }
 
-NK_API void
+ void
 nk_x11_font_stash_end(void)
 {
     const void *image; int w, h;
@@ -597,7 +597,7 @@ nk_x11_font_stash_end(void)
         nk_style_set_font(&x11.ctx, &x11.atlas.default_font->handle);
 }
 
-NK_API int
+ int
 nk_x11_handle_event(XEvent *evt)
 {
     struct nk_context *ctx = &x11.ctx;
@@ -710,7 +710,7 @@ nk_x11_handle_event(XEvent *evt)
     return 0;
 }
 
-NK_API struct nk_context*
+ struct nk_context*
 nk_x11_init(Display *dpy, Window win)
 {
     if (!setlocale(LC_ALL,"")) return 0;
@@ -732,7 +732,7 @@ nk_x11_init(Display *dpy, Window win)
     return &x11.ctx;
 }
 
-NK_API void
+ void
 nk_x11_shutdown(void)
 {
     nk_font_atlas_clear(&x11.atlas);

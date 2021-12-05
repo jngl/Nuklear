@@ -19,14 +19,14 @@
 #include <SDL2/SDL_opengles2.h>
 
 
-NK_API struct nk_context*   nk_sdl_init(SDL_Window *win);
-NK_API void                 nk_sdl_font_stash_begin(struct nk_font_atlas **atlas);
-NK_API void                 nk_sdl_font_stash_end(void);
-NK_API int                  nk_sdl_handle_event(SDL_Event *evt);
-NK_API void                 nk_sdl_render(enum nk_anti_aliasing , int max_vertex_buffer, int max_element_buffer);
-NK_API void                 nk_sdl_shutdown(void);
-NK_API void                 nk_sdl_device_destroy(void);
-NK_API void                 nk_sdl_device_create(void);
+ struct nk_context*   nk_sdl_init(SDL_Window *win);
+ void                 nk_sdl_font_stash_begin(struct nk_font_atlas **atlas);
+ void                 nk_sdl_font_stash_end(void);
+ int                  nk_sdl_handle_event(SDL_Event *evt);
+ void                 nk_sdl_render(enum nk_anti_aliasing , int max_vertex_buffer, int max_element_buffer);
+ void                 nk_sdl_shutdown(void);
+ void                 nk_sdl_device_destroy(void);
+ void                 nk_sdl_device_create(void);
 
 #endif
 
@@ -75,7 +75,7 @@ static struct nk_sdl {
 #define NK_SHADER_VERSION "#version 100\n"
 
 
-NK_API void
+ void
 nk_sdl_device_create(void)
 {
     GLint status;
@@ -155,7 +155,7 @@ nk_sdl_device_upload_atlas(const void *image, int width, int height)
                 GL_RGBA, GL_UNSIGNED_BYTE, image);
 }
 
-NK_API void
+ void
 nk_sdl_device_destroy(void)
 {
     struct nk_sdl_device *dev = &sdl.ogl;
@@ -170,7 +170,7 @@ nk_sdl_device_destroy(void)
     nk_buffer_free(&dev->cmds);
 }
 
-NK_API void
+ void
 nk_sdl_render(enum nk_anti_aliasing AA, int max_vertex_buffer, int max_element_buffer)
 {
     struct nk_sdl_device *dev = &sdl.ogl;
@@ -309,7 +309,7 @@ nk_sdl_clipboard_copy(nk_handle usr, const char *text, int len)
     free(str);
 }
 
-NK_API struct nk_context*
+ struct nk_context*
 nk_sdl_init(SDL_Window *win)
 {
     sdl.win = win;
@@ -321,7 +321,7 @@ nk_sdl_init(SDL_Window *win)
     return &sdl.ctx;
 }
 
-NK_API void
+ void
 nk_sdl_font_stash_begin(struct nk_font_atlas **atlas)
 {
     nk_font_atlas_init_default(&sdl.atlas);
@@ -329,7 +329,7 @@ nk_sdl_font_stash_begin(struct nk_font_atlas **atlas)
     *atlas = &sdl.atlas;
 }
 
-NK_API void
+ void
 nk_sdl_font_stash_end(void)
 {
     const void *image; int w, h;
@@ -341,7 +341,7 @@ nk_sdl_font_stash_end(void)
 
 }
 
-NK_API int
+ int
 nk_sdl_handle_event(SDL_Event *evt)
 {
     struct nk_context *ctx = &sdl.ctx;
@@ -432,7 +432,7 @@ nk_sdl_handle_event(SDL_Event *evt)
     return 0;
 }
 
-NK_API
+
 void nk_sdl_shutdown(void)
 {
     nk_font_atlas_clear(&sdl.atlas);

@@ -17,27 +17,27 @@
 
 typedef struct XFont XFont;
 #ifdef NK_XLIB_USE_XFT
-NK_API struct nk_context*   nk_xlib_init(XFont*, Display*, int scrn, Window root, Visual *vis, Colormap cmap, unsigned w, unsigned h);
+ struct nk_context*   nk_xlib_init(XFont*, Display*, int scrn, Window root, Visual *vis, Colormap cmap, unsigned w, unsigned h);
 #else
-NK_API struct nk_context*   nk_xlib_init(XFont*, Display*, int scrn, Window root, unsigned w, unsigned h);
+ struct nk_context*   nk_xlib_init(XFont*, Display*, int scrn, Window root, unsigned w, unsigned h);
 #endif
-NK_API int                  nk_xlib_handle_event(Display*, int scrn, Window, XEvent*);
-NK_API void                 nk_xlib_render(Drawable screen, struct nk_color clear);
-NK_API void                 nk_xlib_shutdown(void);
-NK_API void                 nk_xlib_set_font(XFont*);
-NK_API void                 nk_xlib_push_font(XFont*);
-NK_API void                 nk_xlib_paste(nk_handle, struct nk_text_edit*);
-NK_API void                 nk_xlib_copy(nk_handle, const char*, int len);
+ int                  nk_xlib_handle_event(Display*, int scrn, Window, XEvent*);
+ void                 nk_xlib_render(Drawable screen, struct nk_color clear);
+ void                 nk_xlib_shutdown(void);
+ void                 nk_xlib_set_font(XFont*);
+ void                 nk_xlib_push_font(XFont*);
+ void                 nk_xlib_paste(nk_handle, struct nk_text_edit*);
+ void                 nk_xlib_copy(nk_handle, const char*, int len);
 
 /* Image */
 #ifdef NK_XLIB_INCLUDE_STB_IMAGE
-NK_API struct nk_image nk_xsurf_load_image_from_file(char const *filename);
-NK_API struct nk_image nk_xsurf_load_image_from_memory(const void *membuf, nk_uint membufSize);
+ struct nk_image nk_xsurf_load_image_from_file(char const *filename);
+ struct nk_image nk_xsurf_load_image_from_memory(const void *membuf, nk_uint membufSize);
 #endif
 
 /* Font */
-NK_API XFont*               nk_xfont_create(Display *dpy, const char *name);
-NK_API void                 nk_xfont_del(Display *dpy, XFont *font);
+ XFont*               nk_xfont_create(Display *dpy, const char *name);
+ void                 nk_xfont_del(Display *dpy, XFont *font);
 
 #endif
 /*
@@ -517,7 +517,7 @@ nk_stbi_image_to_xsurf(unsigned char *data, int width, int height, int channels)
     return img;
 }
 
-NK_API struct nk_image
+ struct nk_image
 nk_xsurf_load_image_from_memory(const void *membuf, nk_uint membufSize)
 {
     int x,y,n;
@@ -526,7 +526,7 @@ nk_xsurf_load_image_from_memory(const void *membuf, nk_uint membufSize)
     return nk_stbi_image_to_xsurf(data, x, y, n);
 }
 
-NK_API struct nk_image
+ struct nk_image
 nk_xsurf_load_image_from_file(char const *filename)
 {
     int x,y,n;
@@ -588,7 +588,7 @@ nk_xsurf_del(XSurface *surf)
     free(surf);
 }
 
-NK_API XFont*
+ XFont*
 nk_xfont_create(Display *dpy, const char *name)
 {
 #ifdef NK_XLIB_USE_XFT
@@ -661,7 +661,7 @@ nk_xfont_get_text_width(nk_handle handle, float height, const char *text, int le
 #endif
 }
 
-NK_API void
+ void
 nk_xfont_del(Display *dpy, XFont *font)
 {
     if(!font) return;
@@ -676,7 +676,7 @@ nk_xfont_del(Display *dpy, XFont *font)
     free(font);
 }
 
-NK_API struct nk_context*
+ struct nk_context*
 nk_xlib_init(XFont *xfont, Display *dpy, int screen, Window root,
 #ifdef NK_XLIB_USE_XFT
     Visual *vis, Colormap cmap,
@@ -714,7 +714,7 @@ nk_xlib_init(XFont *xfont, Display *dpy, int screen, Window root,
     return &xlib.ctx;
 }
 
-NK_API void
+ void
 nk_xlib_set_font(XFont *xfont)
 {
     struct nk_user_font *font = &xfont->handle;
@@ -724,7 +724,7 @@ nk_xlib_set_font(XFont *xfont)
     nk_style_set_font(&xlib.ctx, font);
 }
 
-NK_API void
+ void
 nk_xlib_push_font(XFont *xfont)
 {
     struct nk_user_font *font = &xfont->handle;
@@ -734,7 +734,7 @@ nk_xlib_push_font(XFont *xfont)
     nk_style_push_font(&xlib.ctx, font);
 }
 
-NK_API void
+ void
 nk_xlib_paste(nk_handle handle, struct nk_text_edit* edit)
 {
     NK_UNUSED(handle);
@@ -745,7 +745,7 @@ nk_xlib_paste(nk_handle handle, struct nk_text_edit* edit)
     XConvertSelection(xlib.dpy, XA_PRIMARY, XA_STRING, XA_PRIMARY, xlib.root, CurrentTime);
 }
 
-NK_API void
+ void
 nk_xlib_copy(nk_handle handle, const char* str, int len)
 {
     NK_UNUSED(handle);
@@ -760,7 +760,7 @@ nk_xlib_copy(nk_handle handle, const char* str, int len)
     }
 }
 
-NK_API int
+ int
 nk_xlib_handle_event(Display *dpy, int screen, Window win, XEvent *evt)
 {
     struct nk_context *ctx = &xlib.ctx;
@@ -936,7 +936,7 @@ nk_xlib_handle_event(Display *dpy, int screen, Window win, XEvent *evt)
     return 0;
 }
 
-NK_API void
+ void
 nk_xlib_shutdown(void)
 {
     nk_xsurf_del(xlib.surf);
@@ -945,7 +945,7 @@ nk_xlib_shutdown(void)
     memset(&xlib, 0, sizeof(xlib));
 }
 
-NK_API void
+ void
 nk_xlib_render(Drawable screen, struct nk_color clear)
 {
     const struct nk_command *cmd;

@@ -19,13 +19,13 @@
 typedef struct ID3D11Device ID3D11Device;
 typedef struct ID3D11DeviceContext ID3D11DeviceContext;
 
-NK_API struct nk_context *nk_d3d11_init(ID3D11Device *device, int width, int height, unsigned int max_vertex_buffer, unsigned int max_index_buffer);
-NK_API void nk_d3d11_font_stash_begin(struct nk_font_atlas **atlas);
-NK_API void nk_d3d11_font_stash_end(void);
-NK_API int nk_d3d11_handle_event(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
-NK_API void nk_d3d11_render(ID3D11DeviceContext *context, enum nk_anti_aliasing);
-NK_API void nk_d3d11_resize(ID3D11DeviceContext *context, int width, int height);
-NK_API void nk_d3d11_shutdown(void);
+ struct nk_context *nk_d3d11_init(ID3D11Device *device, int width, int height, unsigned int max_vertex_buffer, unsigned int max_index_buffer);
+ void nk_d3d11_font_stash_begin(struct nk_font_atlas **atlas);
+ void nk_d3d11_font_stash_end(void);
+ int nk_d3d11_handle_event(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+ void nk_d3d11_render(ID3D11DeviceContext *context, enum nk_anti_aliasing);
+ void nk_d3d11_resize(ID3D11DeviceContext *context, int width, int height);
+ void nk_d3d11_shutdown(void);
 
 #endif
 /*
@@ -79,7 +79,7 @@ static struct
     ID3D11SamplerState *sampler_state;
 } d3d11;
 
-NK_API void
+ void
 nk_d3d11_render(ID3D11DeviceContext *context, enum nk_anti_aliasing AA)
 {
     const float blend_factor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
@@ -187,7 +187,7 @@ nk_d3d11_get_projection_matrix(int width, int height, float *result)
     memcpy(result, matrix, sizeof(matrix));
 }
 
-NK_API void
+ void
 nk_d3d11_resize(ID3D11DeviceContext *context, int width, int height)
 {
     D3D11_MAPPED_SUBRESOURCE mapped;
@@ -201,7 +201,7 @@ nk_d3d11_resize(ID3D11DeviceContext *context, int width, int height)
     }
 }
 
-NK_API int
+ int
 nk_d3d11_handle_event(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
     switch (msg)
@@ -423,7 +423,7 @@ nk_d3d11_clipboard_copy(nk_handle usr, const char *text, int len)
     }
 }
 
-NK_API struct nk_context*
+ struct nk_context*
 nk_d3d11_init(ID3D11Device *device, int width, int height, unsigned int max_vertex_buffer, unsigned int max_index_buffer)
 {
     HRESULT hr;
@@ -551,7 +551,7 @@ nk_d3d11_init(ID3D11Device *device, int width, int height, unsigned int max_vert
     return &d3d11.ctx;
 }
 
-NK_API void
+ void
 nk_d3d11_font_stash_begin(struct nk_font_atlas **atlas)
 {
     nk_font_atlas_init_default(&d3d11.atlas);
@@ -559,7 +559,7 @@ nk_d3d11_font_stash_begin(struct nk_font_atlas **atlas)
     *atlas = &d3d11.atlas;
 }
 
-NK_API void
+ void
 nk_d3d11_font_stash_end(void)
 {
     const void *image; int w, h;
@@ -604,7 +604,7 @@ nk_d3d11_font_stash_end(void)
         nk_style_set_font(&d3d11.ctx, &d3d11.atlas.default_font->handle);
 }
 
-NK_API
+
 void nk_d3d11_shutdown(void)
 {
     nk_font_atlas_clear(&d3d11.atlas);

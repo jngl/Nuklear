@@ -71,13 +71,13 @@ nk_range_glyph_count(const nk_rune *range, int count)
     }
     return total_glyphs;
 }
-NK_API const nk_rune*
+ const nk_rune*
 nk_font_default_glyph_ranges(void)
 {
     NK_STORAGE const nk_rune ranges[] = {0x0020, 0x00FF, 0};
     return ranges;
 }
-NK_API const nk_rune*
+ const nk_rune*
 nk_font_chinese_glyph_ranges(void)
 {
     NK_STORAGE const nk_rune ranges[] = {
@@ -90,7 +90,7 @@ nk_font_chinese_glyph_ranges(void)
     };
     return ranges;
 }
-NK_API const nk_rune*
+ const nk_rune*
 nk_font_cyrillic_glyph_ranges(void)
 {
     NK_STORAGE const nk_rune ranges[] = {
@@ -102,7 +102,7 @@ nk_font_cyrillic_glyph_ranges(void)
     };
     return ranges;
 }
-NK_API const nk_rune*
+ const nk_rune*
 nk_font_korean_glyph_ranges(void)
 {
     NK_STORAGE const nk_rune ranges[] = {
@@ -504,7 +504,7 @@ nk_font_query_font_glyph(nk_handle handle, float height,
     glyph->uv[1] = nk_vec2(g->u1, g->v1);
 }
 #endif
-NK_API const struct nk_font_glyph*
+ const struct nk_font_glyph*
 nk_font_find_glyph(struct nk_font *font, nk_rune unicode)
 {
     int i = 0;
@@ -857,7 +857,7 @@ nk_decode_85(unsigned char* dst, const unsigned char* src)
  *                          FONT ATLAS
  *
  * --------------------------------------------------------------*/
-NK_API struct nk_font_config
+ struct nk_font_config
 nk_font_config(float pixel_height)
 {
     struct nk_font_config cfg;
@@ -879,7 +879,7 @@ nk_font_config(float pixel_height)
     return cfg;
 }
 #ifdef NK_INCLUDE_DEFAULT_ALLOCATOR
-NK_API void
+ void
 nk_font_atlas_init_default(struct nk_font_atlas *atlas)
 {
     NK_ASSERT(atlas);
@@ -893,7 +893,7 @@ nk_font_atlas_init_default(struct nk_font_atlas *atlas)
     atlas->permanent.free = nk_mfree;
 }
 #endif
-NK_API void
+ void
 nk_font_atlas_init(struct nk_font_atlas *atlas, struct nk_allocator *alloc)
 {
     NK_ASSERT(atlas);
@@ -903,7 +903,7 @@ nk_font_atlas_init(struct nk_font_atlas *atlas, struct nk_allocator *alloc)
     atlas->permanent = *alloc;
     atlas->temporary = *alloc;
 }
-NK_API void
+ void
 nk_font_atlas_init_custom(struct nk_font_atlas *atlas,
     struct nk_allocator *permanent, struct nk_allocator *temporary)
 {
@@ -915,7 +915,7 @@ nk_font_atlas_init_custom(struct nk_font_atlas *atlas,
     atlas->permanent = *permanent;
     atlas->temporary = *temporary;
 }
-NK_API void
+ void
 nk_font_atlas_begin(struct nk_font_atlas *atlas)
 {
     NK_ASSERT(atlas);
@@ -932,7 +932,7 @@ nk_font_atlas_begin(struct nk_font_atlas *atlas)
         atlas->pixel = 0;
     }
 }
-NK_API struct nk_font*
+ struct nk_font*
 nk_font_atlas_add(struct nk_font_atlas *atlas, const struct nk_font_config *config)
 {
     struct nk_font *font = 0;
@@ -1019,7 +1019,7 @@ nk_font_atlas_add(struct nk_font_atlas *atlas, const struct nk_font_config *conf
     atlas->font_num++;
     return font;
 }
-NK_API struct nk_font*
+ struct nk_font*
 nk_font_atlas_add_from_memory(struct nk_font_atlas *atlas, void *memory,
     nk_size size, float height, const struct nk_font_config *config)
 {
@@ -1044,7 +1044,7 @@ nk_font_atlas_add_from_memory(struct nk_font_atlas *atlas, void *memory,
     return nk_font_atlas_add(atlas, &cfg);
 }
 #ifdef NK_INCLUDE_STANDARD_IO
-NK_API struct nk_font*
+ struct nk_font*
 nk_font_atlas_add_from_file(struct nk_font_atlas *atlas, const char *file_path,
     float height, const struct nk_font_config *config)
 {
@@ -1070,7 +1070,7 @@ nk_font_atlas_add_from_file(struct nk_font_atlas *atlas, const char *file_path,
     return nk_font_atlas_add(atlas, &cfg);
 }
 #endif
-NK_API struct nk_font*
+ struct nk_font*
 nk_font_atlas_add_compressed(struct nk_font_atlas *atlas,
     void *compressed_data, nk_size compressed_size, float height,
     const struct nk_font_config *config)
@@ -1105,7 +1105,7 @@ nk_font_atlas_add_compressed(struct nk_font_atlas *atlas,
     cfg.ttf_data_owned_by_atlas = 1;
     return nk_font_atlas_add(atlas, &cfg);
 }
-NK_API struct nk_font*
+ struct nk_font*
 nk_font_atlas_add_compressed_base85(struct nk_font_atlas *atlas,
     const char *data_base85, float height, const struct nk_font_config *config)
 {
@@ -1136,7 +1136,7 @@ nk_font_atlas_add_compressed_base85(struct nk_font_atlas *atlas,
 }
 
 #ifdef NK_INCLUDE_DEFAULT_FONT
-NK_API struct nk_font*
+ struct nk_font*
 nk_font_atlas_add_default(struct nk_font_atlas *atlas,
     float pixel_height, const struct nk_font_config *config)
 {
@@ -1149,7 +1149,7 @@ nk_font_atlas_add_default(struct nk_font_atlas *atlas,
         nk_proggy_clean_ttf_compressed_data_base85, pixel_height, config);
 }
 #endif
-NK_API const void*
+ const void*
 nk_font_atlas_bake(struct nk_font_atlas *atlas, int *width, int *height,
     enum nk_font_atlas_format fmt)
 {
@@ -1274,7 +1274,7 @@ failed:
     }
     return 0;
 }
-NK_API void
+ void
 nk_font_atlas_end(struct nk_font_atlas *atlas, nk_handle texture,
     struct nk_draw_null_texture *null)
 {
@@ -1309,7 +1309,7 @@ nk_font_atlas_end(struct nk_font_atlas *atlas, nk_handle texture,
     atlas->custom.w = 0;
     atlas->custom.h = 0;
 }
-NK_API void
+ void
 nk_font_atlas_cleanup(struct nk_font_atlas *atlas)
 {
     NK_ASSERT(atlas);
@@ -1331,7 +1331,7 @@ nk_font_atlas_cleanup(struct nk_font_atlas *atlas)
         }
     }
 }
-NK_API void
+ void
 nk_font_atlas_clear(struct nk_font_atlas *atlas)
 {
     NK_ASSERT(atlas);

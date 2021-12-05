@@ -19,15 +19,15 @@
 
 #include <SFML/Window.hpp>
 
-NK_API struct nk_context*   nk_sfml_init(sf::Window* window);
-NK_API void                 nk_sfml_font_stash_begin(struct nk_font_atlas** atlas);
-NK_API void                 nk_sfml_font_stash_end(void);
-NK_API int                  nk_sfml_handle_event(sf::Event* event);
-NK_API void                 nk_sfml_render(enum nk_anti_aliasing, int max_vertex_buffer, int max_element_buffer);
-NK_API void                 nk_sfml_shutdown(void);
+ struct nk_context*   nk_sfml_init(sf::Window* window);
+ void                 nk_sfml_font_stash_begin(struct nk_font_atlas** atlas);
+ void                 nk_sfml_font_stash_end(void);
+ int                  nk_sfml_handle_event(sf::Event* event);
+ void                 nk_sfml_render(enum nk_anti_aliasing, int max_vertex_buffer, int max_element_buffer);
+ void                 nk_sfml_shutdown(void);
 
-NK_API void                 nk_sfml_device_create(void);
-NK_API void                 nk_sfml_device_destroy(void);
+ void                 nk_sfml_device_create(void);
+ void                 nk_sfml_device_destroy(void);
 
 #endif
 /*
@@ -73,7 +73,7 @@ static struct nk_sfml {
   #define NK_SHADER_VERSION "#version 300 es\n"
 #endif
 
-NK_API void
+ void
 nk_sfml_device_create(void)
 {
     GLint status;
@@ -160,7 +160,7 @@ nk_sfml_device_create(void)
     glBindVertexArray(0);
 }
 
-NK_API void
+ void
 nk_sfml_device_destroy(void)
 {
     struct nk_sfml_device* dev = &sfml.ogl;
@@ -188,7 +188,7 @@ nk_sfml_device_upload_atlas(const void* image, int width, int height)
                 GL_RGBA, GL_UNSIGNED_BYTE, image);
 }
 
-NK_API void
+ void
 nk_sfml_render(enum nk_anti_aliasing AA, int max_vertex_buffer, int max_element_buffer)
 {
     /* setup global state */
@@ -319,7 +319,7 @@ nk_sfml_clipboard_copy(nk_handle usr, const char* text, int len)
 #endif
 }
 
-NK_API struct nk_context*
+ struct nk_context*
 nk_sfml_init(sf::Window* window)
 {
     sfml.window = window;
@@ -331,7 +331,7 @@ nk_sfml_init(sf::Window* window)
     return &sfml.ctx;
 }
 
-NK_API void
+ void
 nk_sfml_font_stash_begin(struct nk_font_atlas** atlas)
 {
     nk_font_atlas_init_default(&sfml.atlas);
@@ -339,7 +339,7 @@ nk_sfml_font_stash_begin(struct nk_font_atlas** atlas)
     *atlas = &sfml.atlas;
 }
 
-NK_API void
+ void
 nk_sfml_font_stash_end()
 {
     const void* image;
@@ -351,7 +351,7 @@ nk_sfml_font_stash_end()
         nk_style_set_font(&sfml.ctx, &sfml.atlas.default_font->handle);
 }
 
-NK_API int
+ int
 nk_sfml_handle_event(sf::Event* evt)
 {
     struct nk_context* ctx = &sfml.ctx;
@@ -455,7 +455,7 @@ nk_sfml_handle_event(sf::Event* evt)
     return 0;
 }
 
-NK_API
+
 void nk_sfml_shutdown()
 {
     nk_font_atlas_clear(&sfml.atlas);

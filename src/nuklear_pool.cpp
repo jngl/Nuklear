@@ -6,7 +6,7 @@
  *                              POOL
  *
  * ===============================================================*/
-NK_LIB void
+void
 nk_pool_init(struct nk_pool *pool, struct nk_allocator *alloc,
     unsigned int capacity)
 {
@@ -17,7 +17,7 @@ nk_pool_init(struct nk_pool *pool, struct nk_allocator *alloc,
     pool->type = NK_BUFFER_DYNAMIC;
     pool->pages = 0;
 }
-NK_LIB void
+void
 nk_pool_free(struct nk_pool *pool)
 {
     struct nk_page *iter;
@@ -30,7 +30,7 @@ nk_pool_free(struct nk_pool *pool)
         iter = next;
     }
 }
-NK_LIB void
+void
 nk_pool_init_fixed(struct nk_pool *pool, void *memory, nk_size size)
 {
     nk_zero(pool, sizeof(*pool));
@@ -42,7 +42,7 @@ nk_pool_init_fixed(struct nk_pool *pool, void *memory, nk_size size)
     pool->type = NK_BUFFER_FIXED;
     pool->size = size;
 }
-NK_LIB struct nk_page_element*
+struct nk_page_element*
 nk_pool_alloc(struct nk_pool *pool)
 {
     if (!pool->pages || pool->pages->size >= pool->capacity) {

@@ -6,7 +6,7 @@
  *                              MENU
  *
  * ===============================================================*/
-NK_API void
+ void
 nk_menubar_begin(struct nk_context *ctx)
 {
     struct nk_panel *layout;
@@ -43,7 +43,7 @@ nk_menubar_begin(struct nk_context *ctx)
     layout->menu.offset.y = *layout->offset_y;
     *layout->offset_y = 0;
 }
-NK_API void
+ void
 nk_menubar_end(struct nk_context *ctx)
 {
     struct nk_window *win;
@@ -109,7 +109,7 @@ nk_menu_begin(struct nk_context *ctx, struct nk_window *win,
     win->popup.name = hash;
     return 1;
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_begin_text(struct nk_context *ctx, const char *title, int len,
     nk_flags align, struct nk_vec2 size)
 {
@@ -134,12 +134,12 @@ nk_menu_begin_text(struct nk_context *ctx, const char *title, int len,
         is_clicked = nk_true;
     return nk_menu_begin(ctx, win, title, is_clicked, header, size);
 }
-NK_API nk_bool nk_menu_begin_label(struct nk_context *ctx,
+ nk_bool nk_menu_begin_label(struct nk_context *ctx,
     const char *text, nk_flags align, struct nk_vec2 size)
 {
     return nk_menu_begin_text(ctx, text, nk_strlen(text), align, size);
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_begin_image(struct nk_context *ctx, const char *id, struct nk_image img,
     struct nk_vec2 size)
 {
@@ -164,7 +164,7 @@ nk_menu_begin_image(struct nk_context *ctx, const char *id, struct nk_image img,
         is_clicked = nk_true;
     return nk_menu_begin(ctx, win, id, is_clicked, header, size);
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_begin_symbol(struct nk_context *ctx, const char *id,
     enum nk_symbol_type sym, struct nk_vec2 size)
 {
@@ -189,7 +189,7 @@ nk_menu_begin_symbol(struct nk_context *ctx, const char *id,
         is_clicked = nk_true;
     return nk_menu_begin(ctx, win, id, is_clicked, header, size);
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_begin_image_text(struct nk_context *ctx, const char *title, int len,
     nk_flags align, struct nk_image img, struct nk_vec2 size)
 {
@@ -215,13 +215,13 @@ nk_menu_begin_image_text(struct nk_context *ctx, const char *title, int len,
         is_clicked = nk_true;
     return nk_menu_begin(ctx, win, title, is_clicked, header, size);
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_begin_image_label(struct nk_context *ctx,
     const char *title, nk_flags align, struct nk_image img, struct nk_vec2 size)
 {
     return nk_menu_begin_image_text(ctx, title, nk_strlen(title), align, img, size);
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_begin_symbol_text(struct nk_context *ctx, const char *title, int len,
     nk_flags align, enum nk_symbol_type sym, struct nk_vec2 size)
 {
@@ -247,49 +247,49 @@ nk_menu_begin_symbol_text(struct nk_context *ctx, const char *title, int len,
         ctx->style.font, in)) is_clicked = nk_true;
     return nk_menu_begin(ctx, win, title, is_clicked, header, size);
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_begin_symbol_label(struct nk_context *ctx,
     const char *title, nk_flags align, enum nk_symbol_type sym, struct nk_vec2 size )
 {
     return nk_menu_begin_symbol_text(ctx, title, nk_strlen(title), align,sym,size);
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_item_text(struct nk_context *ctx, const char *title, int len, nk_flags align)
 {
     return nk_contextual_item_text(ctx, title, len, align);
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_item_label(struct nk_context *ctx, const char *label, nk_flags align)
 {
     return nk_contextual_item_label(ctx, label, align);
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_item_image_label(struct nk_context *ctx, struct nk_image img,
     const char *label, nk_flags align)
 {
     return nk_contextual_item_image_label(ctx, img, label, align);
 }
-NK_API nk_bool
+ nk_bool
 nk_menu_item_image_text(struct nk_context *ctx, struct nk_image img,
     const char *text, int len, nk_flags align)
 {
     return nk_contextual_item_image_text(ctx, img, text, len, align);
 }
-NK_API nk_bool nk_menu_item_symbol_text(struct nk_context *ctx, enum nk_symbol_type sym,
+ nk_bool nk_menu_item_symbol_text(struct nk_context *ctx, enum nk_symbol_type sym,
     const char *text, int len, nk_flags align)
 {
     return nk_contextual_item_symbol_text(ctx, sym, text, len, align);
 }
-NK_API nk_bool nk_menu_item_symbol_label(struct nk_context *ctx, enum nk_symbol_type sym,
+ nk_bool nk_menu_item_symbol_label(struct nk_context *ctx, enum nk_symbol_type sym,
     const char *label, nk_flags align)
 {
     return nk_contextual_item_symbol_label(ctx, sym, label, align);
 }
-NK_API void nk_menu_close(struct nk_context *ctx)
+ void nk_menu_close(struct nk_context *ctx)
 {
     nk_contextual_close(ctx);
 }
-NK_API void
+ void
 nk_menu_end(struct nk_context *ctx)
 {
     nk_contextual_end(ctx);

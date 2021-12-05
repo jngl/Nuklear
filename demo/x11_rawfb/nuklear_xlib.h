@@ -35,10 +35,10 @@
 
 #include <X11/Xlib.h>
 
-NK_API int  nk_xlib_init(Display *dpy, Visual *vis, int screen, Window root, unsigned int w, unsigned int h, void **fb, rawfb_pl *pl);
-NK_API int  nk_xlib_handle_event(Display *dpy, int screen, Window win, XEvent *evt, struct rawfb_context *rawfb);
-NK_API void nk_xlib_render(Drawable screen);
-NK_API void nk_xlib_shutdown(void);
+ int  nk_xlib_init(Display *dpy, Visual *vis, int screen, Window root, unsigned int w, unsigned int h, void **fb, rawfb_pl *pl);
+ int  nk_xlib_handle_event(Display *dpy, int screen, Window win, XEvent *evt, struct rawfb_context *rawfb);
+ void nk_xlib_render(Drawable screen);
+ void nk_xlib_shutdown(void);
 
 #endif
 /*
@@ -69,7 +69,7 @@ static struct  {
     GC gc;
 } xlib;
 
-NK_API int
+ int
 nk_xlib_init(Display *dpy, Visual *vis, int screen, Window root,
     unsigned int w, unsigned int h, void **fb, rawfb_pl *pl)
 {
@@ -155,7 +155,7 @@ nk_xlib_init(Display *dpy, Visual *vis, int screen, Window root,
     return 1;
 }
 
-NK_API int
+ int
 nk_xlib_handle_event(Display *dpy, int screen, Window win, XEvent *evt, struct rawfb_context *rawfb)
 {
     /* optional grabbing behavior */
@@ -275,7 +275,7 @@ nk_xlib_handle_event(Display *dpy, int screen, Window win, XEvent *evt, struct r
     } return 0;
 }
 
-NK_API void
+ void
 nk_xlib_shutdown(void)
 {
     XFreeCursor(xlib.dpy, xlib.cursor);
@@ -290,7 +290,7 @@ nk_xlib_shutdown(void)
     } memset(&xlib, 0, sizeof(xlib));
 }
 
-NK_API void
+ void
 nk_xlib_render(Drawable screen)
 {
     if (xlib.fallback)

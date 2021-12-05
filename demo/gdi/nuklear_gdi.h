@@ -17,15 +17,15 @@
 #include <windows.h>
 
 typedef struct GdiFont GdiFont;
-NK_API struct nk_context* nk_gdi_init(GdiFont *font, HDC window_dc, unsigned int width, unsigned int height);
-NK_API int nk_gdi_handle_event(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
-NK_API void nk_gdi_render(struct nk_color clear);
-NK_API void nk_gdi_shutdown(void);
+ struct nk_context* nk_gdi_init(GdiFont *font, HDC window_dc, unsigned int width, unsigned int height);
+ int nk_gdi_handle_event(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+ void nk_gdi_render(struct nk_color clear);
+ void nk_gdi_shutdown(void);
 
 /* font */
-NK_API GdiFont* nk_gdifont_create(const char *name, int size);
-NK_API void nk_gdifont_del(GdiFont *font);
-NK_API void nk_gdi_set_font(GdiFont *font);
+ GdiFont* nk_gdifont_create(const char *name, int size);
+ void nk_gdifont_del(GdiFont *font);
+ void nk_gdi_set_font(GdiFont *font);
 
 #endif
 
@@ -577,7 +577,7 @@ nk_gdi_clipboard_copy(nk_handle usr, const char *text, int len)
     }
 }
 
-NK_API struct nk_context*
+ struct nk_context*
 nk_gdi_init(GdiFont *gdifont, HDC window_dc, unsigned int width, unsigned int height)
 {
     struct nk_user_font *font = &gdifont->nk;
@@ -598,7 +598,7 @@ nk_gdi_init(GdiFont *gdifont, HDC window_dc, unsigned int width, unsigned int he
     return &gdi.ctx;
 }
 
-NK_API void
+ void
 nk_gdi_set_font(GdiFont *gdifont)
 {
     struct nk_user_font *font = &gdifont->nk;
@@ -608,7 +608,7 @@ nk_gdi_set_font(GdiFont *gdifont)
     nk_style_set_font(&gdi.ctx, font);
 }
 
-NK_API int
+ int
 nk_gdi_handle_event(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
     switch (msg)
@@ -794,7 +794,7 @@ nk_gdi_handle_event(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam)
     return 0;
 }
 
-NK_API void
+ void
 nk_gdi_shutdown(void)
 {
     DeleteObject(gdi.memory_dc);
@@ -802,7 +802,7 @@ nk_gdi_shutdown(void)
     nk_free(&gdi.ctx);
 }
 
-NK_API void
+ void
 nk_gdi_render(struct nk_color clear)
 {
     const struct nk_command *cmd;

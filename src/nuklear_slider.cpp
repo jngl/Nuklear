@@ -6,7 +6,7 @@
  *                              SLIDER
  *
  * ===============================================================*/
-NK_LIB float
+float
 nk_slider_behavior(nk_flags *state, struct nk_rect *logical_cursor,
     struct nk_rect *visual_cursor, struct nk_input *in,
     struct nk_rect bounds, float slider_min, float slider_max, float slider_value,
@@ -48,7 +48,7 @@ nk_slider_behavior(nk_flags *state, struct nk_rect *logical_cursor,
         *state |= NK_WIDGET_STATE_LEFT;
     return slider_value;
 }
-NK_LIB void
+void
 nk_draw_slider(struct nk_command_buffer *out, nk_flags state,
     const struct nk_style_slider *style, const struct nk_rect *bounds,
     const struct nk_rect *visual_cursor, float min, float value, float max)
@@ -114,7 +114,7 @@ nk_draw_slider(struct nk_command_buffer *out, nk_flags state,
     else
         nk_fill_circle(out, *visual_cursor, cursor->data.color);
 }
-NK_LIB float
+float
 nk_do_slider(nk_flags *state,
     struct nk_command_buffer *out, struct nk_rect bounds,
     float min, float val, float max, float step,
@@ -203,7 +203,7 @@ nk_do_slider(nk_flags *state,
     if (style->draw_end) style->draw_end(out, style->userdata);
     return slider_value;
 }
-NK_API nk_bool
+ nk_bool
 nk_slider_float(struct nk_context *ctx, float min_value, float *value, float max_value,
     float value_step)
 {
@@ -237,19 +237,19 @@ nk_slider_float(struct nk_context *ctx, float min_value, float *value, float max
                 old_value, max_value, value_step, &style->slider, in, style->font);
     return (old_value > *value || old_value < *value);
 }
-NK_API float
+ float
 nk_slide_float(struct nk_context *ctx, float min, float val, float max, float step)
 {
     nk_slider_float(ctx, min, &val, max, step); return val;
 }
-NK_API int
+ int
 nk_slide_int(struct nk_context *ctx, int min, int val, int max, int step)
 {
     float value = (float)val;
     nk_slider_float(ctx, (float)min, &value, (float)max, (float)step);
     return (int)value;
 }
-NK_API nk_bool
+ nk_bool
 nk_slider_int(struct nk_context *ctx, int min, int *val, int max, int step)
 {
     int ret;

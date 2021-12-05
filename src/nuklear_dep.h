@@ -5,12 +5,12 @@
 #ifndef NUKLEARCPP_NUKLEAR_DEP_H
 #define NUKLEARCPP_NUKLEAR_DEP_H
 
-NK_LIB void* nk_memcopy(void *dst, const void *src, nk_size n);
-NK_LIB void nk_memset(void *ptr, int c0, nk_size size);
-NK_LIB char *nk_dtoa(char *s, double n);
+void* nk_memcopy(void *dst, const void *src, unsigned int n);
+void nk_memset(void *ptr, int c0, unsigned int size);
+char *nk_dtoa(char *s, double n);
 
-NK_LIB float nk_sin(float x);
-NK_LIB float nk_cos(float x);
+float nk_sin(float x);
+float nk_cos(float x);
 
 #define NK_MEMCPY nk_memcopy
 #define NK_MEMSET nk_memset
@@ -25,5 +25,9 @@ NK_LIB float nk_cos(float x);
 #define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
 #define NK_INCLUDE_FONT_BAKING
 #define NK_INCLUDE_DEFAULT_FONT
+
+constexpr unsigned int NK_INPUT_MAX = 16;
+constexpr unsigned int NK_MAX_NUMBER_BUFFER = 64;
+constexpr float NK_SCROLLBAR_HIDING_TIMEOUT = 4.0f;
 
 #endif //NUKLEARCPP_NUKLEAR_DEP_H

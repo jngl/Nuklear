@@ -19,21 +19,21 @@
 
 /* font */
 typedef struct GdipFont GdipFont;
-NK_API GdipFont* nk_gdipfont_create(const char *name, int size);
-NK_API GdipFont* nk_gdipfont_create_from_file(const WCHAR* filename, int size);
-NK_API GdipFont* nk_gdipfont_create_from_memory(const void* membuf, int membufSize, int size);
-NK_API void nk_gdipfont_del(GdipFont *font);
+ GdipFont* nk_gdipfont_create(const char *name, int size);
+ GdipFont* nk_gdipfont_create_from_file(const WCHAR* filename, int size);
+ GdipFont* nk_gdipfont_create_from_memory(const void* membuf, int membufSize, int size);
+ void nk_gdipfont_del(GdipFont *font);
 
-NK_API struct nk_context* nk_gdip_init(HWND hwnd, unsigned int width, unsigned int height);
-NK_API void nk_gdip_set_font(GdipFont *font);
-NK_API int nk_gdip_handle_event(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
-NK_API void nk_gdip_render(enum nk_anti_aliasing AA, struct nk_color clear);
-NK_API void nk_gdip_shutdown(void);
+ struct nk_context* nk_gdip_init(HWND hwnd, unsigned int width, unsigned int height);
+ void nk_gdip_set_font(GdipFont *font);
+ int nk_gdip_handle_event(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+ void nk_gdip_render(enum nk_anti_aliasing AA, struct nk_color clear);
+ void nk_gdip_shutdown(void);
 
 /* image */
-NK_API struct nk_image nk_gdip_load_image_from_file(const WCHAR* filename);
-NK_API struct nk_image nk_gdip_load_image_from_memory(const void* membuf, nk_uint membufSize);
-NK_API void nk_gdip_image_free(struct nk_image image);
+ struct nk_image nk_gdip_load_image_from_file(const WCHAR* filename);
+ struct nk_image nk_gdip_load_image_from_memory(const void* membuf, nk_uint membufSize);
+ void nk_gdip_image_free(struct nk_image image);
 
 #endif
 /*
@@ -829,7 +829,7 @@ nk_gdip_clipboard_copy(nk_handle usr, const char *text, int len)
     CloseClipboard();
 }
 
-NK_API struct nk_context*
+ struct nk_context*
 nk_gdip_init(HWND hwnd, unsigned int width, unsigned int height)
 {
     int i;
@@ -855,7 +855,7 @@ nk_gdip_init(HWND hwnd, unsigned int width, unsigned int height)
     return &gdip.ctx;
 }
 
-NK_API void
+ void
 nk_gdip_set_font(GdipFont *gdipfont)
 {
     struct nk_user_font *font = &gdipfont->nk;
@@ -865,7 +865,7 @@ nk_gdip_set_font(GdipFont *gdipfont)
     nk_style_set_font(&gdip.ctx, font);
 }
 
-NK_API int
+ int
 nk_gdip_handle_event(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
     switch (msg)
@@ -1053,7 +1053,7 @@ nk_gdip_handle_event(HWND wnd, UINT msg, WPARAM wparam, LPARAM lparam)
     return 0;
 }
 
-NK_API void
+ void
 nk_gdip_shutdown(void)
 {
     int i;
@@ -1070,7 +1070,7 @@ nk_gdip_shutdown(void)
     nk_free(&gdip.ctx);
 }
 
-NK_API void
+ void
 nk_gdip_prerender_gui(enum nk_anti_aliasing AA)
 {
     const struct nk_command *cmd;
@@ -1157,7 +1157,7 @@ nk_gdip_prerender_gui(enum nk_anti_aliasing AA)
     }
 }
 
-NK_API void
+ void
 nk_gdip_render_gui(enum nk_anti_aliasing AA)
 {
     nk_gdip_prerender_gui(AA);
@@ -1165,7 +1165,7 @@ nk_gdip_render_gui(enum nk_anti_aliasing AA)
     nk_clear(&gdip.ctx);
 }
 
-NK_API void
+ void
 nk_gdip_render(enum nk_anti_aliasing AA, struct nk_color clear)
 {
     nk_gdip_clear(clear);
