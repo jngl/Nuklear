@@ -780,7 +780,7 @@ int main(int argc, char *argv[])
             if (nk_group_begin(&ctx, "Standard", NK_WINDOW_BORDER|NK_WINDOW_BORDER))
             {
                 if (nk_tree_push(&ctx, NK_TREE_NODE, "Window", NK_MAXIMIZED)) {
-                    static int selected[8];
+                    static bool selected[8];
                     if (nk_tree_push(&ctx, NK_TREE_NODE, "Next", NK_MAXIMIZED)) {
                         nk_layout_row_dynamic(&ctx, 20, 1);
                         for (i = 0; i < 4; ++i)

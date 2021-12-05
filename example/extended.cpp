@@ -177,7 +177,7 @@ grid_demo(struct nk_context *ctx, struct media *media)
     static int text_len[3];
     static const char *items[] = {"Item 0","item 1","item 2"};
     static int selected_item = 0;
-    static int check = 1;
+    static bool check = 1;
 
     int i;
     nk_style_set_font(ctx, &media->font_20->handle);
@@ -353,8 +353,8 @@ static void
 basic_demo(struct nk_context *ctx, struct media *media)
 {
     static int image_active;
-    static int check0 = 1;
-    static int check1 = 0;
+    static bool check0 = 1;
+    static bool check1 = 0;
     static size_t prog = 80;
     static int selected_item = 0;
     static int selected_image = 3;

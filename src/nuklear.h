@@ -1,16 +1,9 @@
 #ifndef NK_NUKLEAR_H_
 #define NK_NUKLEAR_H_
 
-/*
- * ==============================================================
- *
- *                          CONSTANTS
- *
- * ===============================================================
- */
-constexpr float NK_UNDEFINED = -1.0f;
-constexpr unsigned int NK_UTF_INVALID = 0xFFFD; /// internal invalid utf8 rune
-constexpr unsigned int NK_UTF_SIZE = 4; /// describes the number of bytes a glyph consists of
+#include "nuklear_constants.h"
+#include "nuklear_basic.h"
+
 /*
  * ==============================================================
  *
@@ -60,117 +53,6 @@ constexpr unsigned int NK_UTF_SIZE = 4; /// describes the number of bytes a glyp
 #endif
 
 #include "nuklear_dep.h"
-
-/*
- * ===============================================================
- *
- *                          BASIC
- *
- * ===============================================================
- */
-#ifdef NK_INCLUDE_FIXED_TYPES
- #include <cstdint>
- using NK_INT8 = int8_t;
- using NK_UINT8 = uint8_t;
- using NK_INT16 = int16_t;
- using NK_UINT16 = uint16_t;
- using NK_INT32 = int32_t;
- using NK_UINT32 = uint32_t;
- using NK_SIZE_TYPE = uintptr_t;
- using NK_POINTER_TYPE = uintptr_t;
-#else
-  #ifndef NK_INT8
-    #define NK_INT8 signed char
-  #endif
-  #ifndef NK_UINT8
-    #define NK_UINT8 unsigned char
-  #endif
-  #ifndef NK_INT16
-    #define NK_INT16 signed short
-  #endif
-  #ifndef NK_UINT16
-    #define NK_UINT16 unsigned short
-  #endif
-  #ifndef NK_INT32
-    #if defined(_MSC_VER)
-      #define NK_INT32 __int32
-    #else
-      #define NK_INT32 signed int
-    #endif
-  #endif
-  #ifndef NK_UINT32
-    #if defined(_MSC_VER)
-      #define NK_UINT32 unsigned __int32
-    #else
-      #define NK_UINT32 unsigned int
-    #endif
-  #endif
-  #ifndef NK_SIZE_TYPE
-    #if defined(_WIN64) && defined(_MSC_VER)
-      #define NK_SIZE_TYPE unsigned __int64
-    #elif (defined(_WIN32) || defined(WIN32)) && defined(_MSC_VER)
-      #define NK_SIZE_TYPE unsigned __int32
-    #elif defined(__GNUC__) || defined(__clang__)
-      #if defined(__x86_64__) || defined(__ppc64__)
-        #define NK_SIZE_TYPE unsigned long
-      #else
-        #define NK_SIZE_TYPE unsigned int
-      #endif
-    #else
-      #define NK_SIZE_TYPE unsigned long
-    #endif
-  #endif
-  #ifndef NK_POINTER_TYPE
-    #if defined(_WIN64) && defined(_MSC_VER)
-      #define NK_POINTER_TYPE unsigned __int64
-    #elif (defined(_WIN32) || defined(WIN32)) && defined(_MSC_VER)
-      #define NK_POINTER_TYPE unsigned __int32
-    #elif defined(__GNUC__) || defined(__clang__)
-      #if defined(__x86_64__) || defined(__ppc64__)
-        #define NK_POINTER_TYPE unsigned long
-      #else
-        #define NK_POINTER_TYPE unsigned int
-      #endif
-    #else
-      #define NK_POINTER_TYPE unsigned long
-    #endif
-  #endif
-#endif
-
-using NK_BOOL = bool;
-
-using nk_char = int8_t;
-using nk_uchar = uint8_t;
-using nk_byte = uint8_t;
-using nk_short = int16_t;
-using nk_ushort = uint16_t;
-using nk_int = int32_t;
-using nk_uint = uint32_t;
-using nk_size = uintptr_t;
-using nk_ptr = uintptr_t;
-using nk_bool = int;
-
-using nk_hash = nk_uint;
-using nk_flags = nk_uint;
-using nk_rune = nk_uint;
-
-/* Make sure correct type size:
- * This will fire with a negative subscript error if the type sizes
- * are set incorrectly by the compiler, and compile out if not */
-static_assert(sizeof(nk_short) == 2);
-static_assert(sizeof(nk_ushort) == 2);
-static_assert(sizeof(nk_uint) == 4);
-static_assert(sizeof(nk_int) == 4);
-static_assert(sizeof(nk_byte) == 1);
-static_assert(sizeof(nk_flags) >= 4);
-static_assert(sizeof(nk_rune) >= 4);
-static_assert(sizeof(nk_size) >= sizeof(void*));
-static_assert(sizeof(nk_ptr) >= sizeof(void*));
-#ifdef NK_INCLUDE_STANDARD_BOOL
-NK_STATIC_ASSERT(sizeof(nk_bool) == sizeof(bool));
-#else
-static_assert(sizeof(nk_bool) >= 2);
-#endif
 
 /* ============================================================================
  *

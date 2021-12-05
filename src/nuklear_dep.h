@@ -19,7 +19,6 @@ float nk_cos(float x);
 #define NK_SIN nk_sin
 #define NK_COS nk_cos
 
-#define NK_INCLUDE_FIXED_TYPES
 #define NK_INCLUDE_STANDARD_IO
 #define NK_INCLUDE_DEFAULT_ALLOCATOR
 #define NK_INCLUDE_VERTEX_BUFFER_OUTPUT

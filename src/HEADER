@@ -94,7 +94,6 @@
 /// Flag                            | Description
 /// --------------------------------|------------------------------------------
 /// NK_PRIVATE                      | If defined declares all functions as static, so they can only be accessed inside the file that contains the implementation
-/// NK_INCLUDE_FIXED_TYPES          | If defined it will include header `<stdint.h>` for fixed sized types otherwise nuklear tries to select the correct type. If that fails it will throw a compiler error and you have to select the correct types yourself.
 /// NK_INCLUDE_DEFAULT_ALLOCATOR    | If defined it will include header `<stdlib.h>` and provide additional functions to use this library without caring for memory allocation control and therefore ease memory management.
 /// NK_INCLUDE_STANDARD_IO          | If defined it will include header `<stdio.h>` and provide additional functions depending on file loading.
 /// NK_INCLUDE_STANDARD_VARARGS     | If defined it will include header <stdarg.h> and provide additional functions depending on file loading.
@@ -116,7 +115,6 @@
 ///
 /// !!! WARNING
 ///     The following flags if defined need to be defined for both header and implementation:
-///     - NK_INCLUDE_FIXED_TYPES
 ///     - NK_INCLUDE_DEFAULT_ALLOCATOR
 ///     - NK_INCLUDE_STANDARD_VARARGS
 ///     - NK_INCLUDE_STANDARD_BOOL
